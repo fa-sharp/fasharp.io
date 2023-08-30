@@ -34,8 +34,9 @@
   }
 </style>
 
-<script>
-  const setTheme = () => {
+<script is:inline>
+if (!window.setTheme) {
+  window.setTheme = () => {
     const theme = (() => {
       if (typeof localStorage !== "undefined") {
         const item = localStorage.getItem("theme");
@@ -64,4 +65,5 @@
   };
   setTheme();
   document.addEventListener("astro:beforeload", setTheme);
+}
 </script>
