@@ -1,0 +1,32 @@
+---
+const platform = "github";
+const username = "fa-sharp";
+---
+
+<footer>
+  <p>
+    Made with 💕 by
+    <a href={`https://www.${platform}.com/${username}`}>{username}</a>, using
+    <a href="https://astro.build">Astro</a> and
+    <a href="https://preactjs.com">Preact</a>
+  </p>
+</footer>
+
+<style>
+  footer {
+    display: flex;
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+  a {
+    padding: 0.2rem;
+    border-radius: 4px;
+    color: white;
+    text-decoration: none;
+    background-color: #9059e3;
+  }
+  a:hover,
+  a:focus {
+    text-decoration: underline;
+  }
+</style>

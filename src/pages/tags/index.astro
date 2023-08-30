@@ -1,0 +1,19 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Tags from "../../components/Tags.astro";
+
+const allPosts = await Astro.glob("../posts/*.md");
+const allTags = [
+  ...new Set(allPosts.flatMap((post) => post.frontmatter.tags)),
+].sort((a, b) => a.localeCompare(b));
+const pageTitle = "Tag index";
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <Tags
+    tags={allTags.map((tag) => ({
+      name: tag,
+      url: `/tags/${tag}`,
+    }))}
+  />
+</BaseLayout>
