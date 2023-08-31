@@ -1,0 +1,27 @@
+---
+import { getCollection } from "astro:content";
+import BlogPost from "~components/BlogPost.astro";
+import BaseLayout from "~layouts/BaseLayout.astro";
+const pageTitle = "Blog posts";
+
+const posts = await getCollection(
+  "blog",
+  ({ data }) => (import.meta.env.PROD ? data.status === "published" : true) // show only published posts in production
+);
+// sort posts from new to old
+posts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <ul>
+    {
+      posts.map((post) => (
+        <BlogPost
+          url={`/blog/${post.slug}`}
+          date={post.data.pubDate}
+          title={post.data.title}
+        />
+      ))
+    }
+  </ul>
+</BaseLayout>

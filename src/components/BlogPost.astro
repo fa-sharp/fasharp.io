@@ -1,7 +1,23 @@
 ---
-const { url, title } = Astro.props;
+export interface Props {
+  url: string;
+  title: string;
+  date?: Date;
+}
+const { url, title, date } = Astro.props;
+
+const dateFormatter = new Intl.DateTimeFormat("en-US", {
+  month: "short",
+  day: "numeric",
+  year:
+    // don't show year if it's the current year
+    date?.getUTCFullYear() === new Date().getUTCFullYear()
+      ? undefined
+      : "2-digit",
+});
+const formattedDate = date ? dateFormatter.format(date) : undefined;
 ---
 
 <li>
-  <a href={url}>{title}</a>
+  <a href={url}>{formattedDate ? `${formattedDate}: ` : ""}{title}</a>
 </li>

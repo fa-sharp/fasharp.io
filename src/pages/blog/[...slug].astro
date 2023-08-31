@@ -1,0 +1,19 @@
+---
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+
+export const getStaticPaths = (async () => {
+  const blogPosts = await getCollection("blog", ({ data }) =>
+    import.meta.env.PROD ? data.status === "published" : true
+  ); // show only published posts in production )
+  return blogPosts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}) satisfies GetStaticPaths;
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<Content />
