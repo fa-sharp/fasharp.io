@@ -1,7 +1,13 @@
 import { h } from "preact";
 import { useEffect, useState } from "preact/hooks";
 
-export default function Greeting({ messages }: { messages: string[] }) {
+export default function Greeting({
+  messages,
+  fontSize = "2rem",
+}: {
+  messages: string[];
+  fontSize?: string;
+}) {
   const randomMessage = () =>
     messages[Math.floor(Math.random() * messages.length)];
 
@@ -17,9 +23,9 @@ export default function Greeting({ messages }: { messages: string[] }) {
             border: 0,
             padding: 0,
             textDecoration: "underline",
-            fontSize: "2rem",
+            fontSize,
             cursor: "pointer",
-            color: "rgb(82 138 159)",
+            color: "rgb(105 154 173)",
           }}
           onClick={() => setGreeting(randomMessage())}
         >

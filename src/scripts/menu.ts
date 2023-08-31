@@ -3,4 +3,4 @@ const enableNavHamburgerToggle = () =>
     document.querySelector(".nav-links")?.classList.toggle("expanded");
   });
 enableNavHamburgerToggle();
-document.addEventListener("astro:beforeload", enableNavHamburgerToggle);
+document.addEventListener("astro:after-swap", enableNavHamburgerToggle);

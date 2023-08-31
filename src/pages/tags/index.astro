@@ -5,9 +5,8 @@ import { getCollection } from "astro:content";
 
 const pageTitle = "Tag index";
 
-const posts = await getCollection(
-  "blog",
-  ({ data }) => (import.meta.env.PROD ? data.status === "published" : true) // show only published posts in production
+const posts = await getCollection("blog", ({ data }) =>
+  import.meta.env.PROD ? data.status !== "draft" : true
 );
 const tags = [...new Set(posts.flatMap((post) => post.data.tags))].sort(
   (a, b) => a.localeCompare(b)
