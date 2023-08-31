@@ -64,6 +64,6 @@ if (!window.setTheme) {
     if (themeButton) themeButton.addEventListener("click", handleToggleClick);
   };
   setTheme();
-  document.addEventListener("astro:beforeload", setTheme);
+  document.addEventListener("astro:after-swap", setTheme);
 }
 </script>
