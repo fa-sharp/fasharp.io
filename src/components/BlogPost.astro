@@ -7,6 +7,7 @@ export interface Props {
 const { url, title, date } = Astro.props;
 
 const dateFormatter = new Intl.DateTimeFormat("en-US", {
+  timeZone: "UTC",
   month: "short",
   day: "numeric",
   year:

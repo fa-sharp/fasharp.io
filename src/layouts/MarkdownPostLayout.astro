@@ -3,8 +3,14 @@ import BaseLayout from "./BaseLayout.astro";
 import Tags from "../components/Tags.astro";
 
 const { frontmatter } = Astro.props;
-
-const formattedDate = new Date(frontmatter.pubDate).toDateString();
+const dateFormatter = new Intl.DateTimeFormat("en-US", {
+  timeZone: "UTC",
+  weekday: "long",
+  month: "short",
+  day: "numeric",
+  year: "numeric",
+});
+const formattedDate = dateFormatter.format(new Date(frontmatter.pubDate));
 ---
 
 <BaseLayout pageTitle={frontmatter.title}>
