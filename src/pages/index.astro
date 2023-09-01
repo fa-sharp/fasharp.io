@@ -1,82 +1,68 @@
 ---
 import { Image } from "astro:assets";
-import { Icon } from "astro-icon/components";
 import profileImage from "~assets/profile.jpg";
 import Greeting from "~components/Greeting";
 import BaseLayout from "~layouts/BaseLayout.astro";
+import RecentPosts from "~components/RecentPosts.astro";
 ---
 
 <BaseLayout>
-  <Greeting
-    client:load
-    fontSize="2.3rem"
-    messages={[
-      "Hi there!",
-      "Salaam!",
-      "!سلام",
-      "Howdy!",
-      "Welcome my friend.",
-      "Hey there!",
-      "Hello!",
-      "Bonjour!",
-    ]}
-  />
-  <p>
-    I am a developer, musician, and teacher with a passion for building useful,
-    joyful, accessible apps and helping others do the same.
-  </p>
-
-  <div class="image-social">
-    <Image
-      class="profile-image"
-      src={profileImage}
-      alt="profile"
-      width={200}
-      height={200}
-    />
-    <div class="social">
-      <a href="https://github.com/fa-sharp">
-        <Icon name="fa6-brands:github" size={32} />
-      </a>
-      <a href="https://instagram.com/farshadpiano/">
-        <Icon name="fa6-brands:instagram" size={32} />
-      </a>
+  <div class="container">
+    <div class="main-content">
+      <Greeting
+        client:load
+        fontSize="2.3rem"
+        messages={[
+          "Hi there!",
+          "Salaam!",
+          "!سلام",
+          "Howdy!",
+          "Welcome my friend.",
+          "Hey there!",
+          "Hello!",
+          "Bonjour!",
+        ]}
+      />
+      <p>
+        I'm Farshad 👋🏼! I'm a musician and teacher who's been coding for two
+        years. I have a passion for building useful, joyful, accessible apps and
+        helping others do the same.
+      </p>
+      <Image
+        class="profile-image"
+        src={profileImage}
+        alt="profile"
+        width={200}
+        height={200}
+      />
     </div>
+    <RecentPosts />
   </div>
-
   <p>
-    This is a little website and blog where I write about things I'm working on,
-    showcase projects, and do other nerdy things. I focus mostly on tech and
-    developer stuff, but I may veer into my other interests too. If you're
-    looking for music and/or are not sure what all this is about, check out my
+    This is a little website and blog where I write about my coding journey,
+    things I'm working on, showcase projects, and do other nerdy things. I focus
+    mostly on tech and developer stuff, but I may veer into my other interests
+    too. If you're looking for music and/or are not sure what all this is about,
+    check out my
     <a href="https://farshadzadeh.com">other website</a>.
   </p>
 </BaseLayout>
 
 <style>
-  .image-social {
-    width: min-content;
-
+  .container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .main-content {
+    flex: 2;
+    min-width: 400px;
   }
   .profile-image {
     border-radius: 50%;
   }
-  .social {
-    display: flex;
-    gap: 1.1rem;
-  }
-  .social > a {
-    color: rgb(106, 106, 106);
-  }
-  .social > a:hover {
-    color: black;
-  }
-
-  :global(.dark) .social > a:hover {
-    color: white;
+  @media screen and (min-width: 636px) {
+    .container {
+      flex-wrap: nowrap;
+    }
   }
 </style>

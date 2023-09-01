@@ -1,0 +1,43 @@
+---
+import { getCollection } from "astro:content";
+import BlogPost from "./BlogPost.astro";
+
+/** The five latest posts */
+const recentPosts = (
+  await getCollection("blog", (post) => post.data.status === "published")
+)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 5);
+---
+
+<section class="container">
+  <h3 class="heading">Recent Posts</h3>
+  <ul class="list">
+    {
+      recentPosts.map((post) => (
+        <BlogPost url={`/blog/${post.slug}`} title={post.data.title} />
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .container {
+    flex: 1;
+
+    height: fit-content;
+    min-width: 200px;
+
+    padding: 1rem;
+    border-radius: 6px;
+    box-shadow: 0px 1px 3px 1px rgb(161 161 161);
+  }
+  .heading {
+    margin-block: 0.3rem;
+  }
+  .list {
+    list-style: inside;
+    padding-inline: 0.2rem;
+    margin-block: 0.2rem;
+  }
+</style>

@@ -1,0 +1,29 @@
+---
+import Icon from "node_modules/astro-icon/components/Icon.astro";
+---
+
+<div class="social">
+  <a href="https://github.com/fa-sharp">
+    <Icon name="fa6-brands:github" size={32} />
+  </a>
+  <a href="https://instagram.com/farshadpiano/">
+    <Icon name="fa6-brands:instagram" size={32} />
+  </a>
+</div>
+
+<style>
+  .social {
+    display: flex;
+    gap: 1.1rem;
+  }
+  .social > a {
+    color: rgb(106, 106, 106);
+  }
+  .social > a:hover {
+    color: black;
+  }
+
+  :global(.dark) .social > a:hover {
+    color: white;
+  }
+</style>

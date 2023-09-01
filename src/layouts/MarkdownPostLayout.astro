@@ -17,8 +17,10 @@ const formattedDate = new Date(frontmatter.pubDate).toDateString();
       }))}
     />
   </div>
-  <img src={frontmatter.image.url} width="300" alt={frontmatter.image.alt} />
-  <slot />
+  <img src={frontmatter.image.url} alt={frontmatter.image.alt} width="300" />
+  <article>
+    <slot />
+  </article>
 </BaseLayout>
 
 <style>

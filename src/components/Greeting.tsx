@@ -25,7 +25,7 @@ export default function Greeting({
             textDecoration: "underline",
             fontSize,
             cursor: "pointer",
-            color: "rgb(105 154 173)",
+            color: "rgb(84 151 177)",
           }}
           onClick={() => setGreeting(randomMessage())}
         >

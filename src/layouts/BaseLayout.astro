@@ -8,7 +8,7 @@ export type Props = {
   pageTitle?: string;
 };
 const { pageTitle } = Astro.props;
-const baseTitle = "Farshad Zadeh";
+const baseTitle = "fa-sharp";
 ---
 
 <html lang="en">
@@ -23,8 +23,10 @@ const baseTitle = "Farshad Zadeh";
   </head>
   <body>
     <Header />
-    <h1>{pageTitle || baseTitle}</h1>
-    <slot />
+    <main>
+      {pageTitle && <h1>{pageTitle}</h1>}
+      <slot />
+    </main>
     <Footer />
     <script src="../scripts/menu.ts"></script>
   </body>
