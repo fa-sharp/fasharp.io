@@ -5,7 +5,7 @@ import MarkdownPostLayout from "~layouts/MarkdownPostLayout.astro";
 
 export const getStaticPaths = (async () => {
   const blogPosts = await getCollection("blog", ({ data }) =>
-    import.meta.env.PROD ? data.status === "published" : true
+    import.meta.env.PROD ? data.status !== "draft" : true
   );
   return blogPosts.map((post) => ({
     params: { slug: post.slug },

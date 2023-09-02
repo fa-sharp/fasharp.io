@@ -1,0 +1,46 @@
+---
+title: Islands
+slug: what-are-islands
+status: published
+description: "What are 'islands' in web development?"
+image:
+  url: "https://images.unsplash.com/photo-1516091877740-fde016699f2c?auto=format&fit=crop&w=600&q=80"
+  alt: "an island"
+pubDate: 2023-09-03
+tags: ["js", "astro", "frameworks"]
+---
+
+import { Image } from "astro:assets";
+import islandsImage from "~assets/blog/diagrams/islands.png";
+import devtoolsImage1 from "~assets/blog/examples/islands-devtools-1.png";
+import devtoolsImage2 from "~assets/blog/examples/islands-devtools-2.png";
+
+I mentioned the 'islands architecture' in my [first post about Astro](/blog/website-setup). It may sound very fancy and all 🎩, but it's actually rather simple! Let's dive in :)
+
+### Static and dynamic content
+
+In any website, we can have **static** and **dynamic** content on the page. Static content, as the name suggests, won't change that much. It includes text, document structure, styles, and image URLs - generally contained in HTML and CSS files. Dynamic content is stuff where you expect _something_ to happen/change when you interact with it - think buttons, menus, widgets, etc. - these will likely require JavaScript to work.
+
+'Islands' allow us to isolate the _dynamic_ parts of the website into their own little separate worlds. This way, we know exactly which parts of the website are static and which parts are dynamic, and the browser can then quickly load the essential, static content first.
+
+### Examples
+
+Here's a diagram of what this might look like, pulled from [Astro's website](https://docs.astro.build/en/concepts/islands/):
+
+<Image src={islandsImage} alt="diagram of islands architecture" width={500} />
+
+In this example, the header and the image carousel are the dynamic parts of the website, and everything else is static. When a user navigates to this site, the browser will load the static content first. Browsers can render those static parts really quickly (it's mostly text!), so this means that the user will (hopefully) be able to start reading the main text content right away. Meanwhile, in the background, the browser will load up the dynamic parts - the header and the image carousel - that will require more time to download and setup.
+
+You can also see islands at work on the homepage of this website. I've set up a simple Greeting widget that will select a random heading every time you click on it. This is a dynamic, interactive component that needs JavaScript to work (I'm using the [Preact](https://preactjs.com/) framework here). If you open up the Devtools network tab, you'll see that the Greeting component (along with the Preact dependencies) is only being loaded _after_ the main content has come through. Notice the 'Waterfall' column on the right, showing the timeline of when things are loading:
+
+<Image src={devtoolsImage1} alt="network devtools" width={800} />
+
+Let's open up just that first item and see how much of the website is actually coming through there:
+
+<Image src={devtoolsImage2} alt="network devtools" width={800} />
+
+Awesome! All the main text and styling is already there. So if the user has a slower internet connection, they'll still be able to start reading and get a sense of what the site is about. In the meantime, the interactive Greeting component will load in the background (along with the profile image being loaded from a different site).
+
+### Why?
+
+OK cool, but why?

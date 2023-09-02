@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import BlogPost from "../../components/BlogPost.astro";
+import BlogPostLink from "../../components/BlogPostLink.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 
 export async function getStaticPaths() {
@@ -32,7 +32,7 @@ const { tag } = Astro.params as { tag: string };
   <ul>
     {
       posts.map((post) => (
-        <BlogPost url={`/blog/${post.slug}`} title={post.data.title} />
+        <BlogPostLink url={`/blog/${post.slug}`} title={post.data.title} />
       ))
     }
   </ul>

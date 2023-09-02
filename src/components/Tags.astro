@@ -1,4 +1,6 @@
 ---
+import { Icon } from "astro-icon/components";
+
 export interface Props {
   tags: Array<{
     url: string;
@@ -10,7 +12,7 @@ const { tags } = Astro.props;
 ---
 
 <div class="tags">
-  🏷️
+  <Icon name="fa6-solid:tags" size={20} />
   {
     tags.map((tag) => (
       <div class="tag">
@@ -25,7 +27,7 @@ const { tags } = Astro.props;
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    gap: 0.5em;
+    gap: 0.5rem;
   }
 
   .tag {

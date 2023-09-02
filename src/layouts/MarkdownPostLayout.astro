@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
 import Tags from "../components/Tags.astro";
+import { Icon } from "astro-icon/components";
 
 const { frontmatter } = Astro.props;
 const dateFormatter = new Intl.DateTimeFormat("en-US", {
@@ -15,7 +16,10 @@ const formattedDate = dateFormatter.format(new Date(frontmatter.pubDate));
 
 <BaseLayout pageTitle={frontmatter.title}>
   <div class="metadata">
-    <div>🗓️ {formattedDate}</div>
+    <div class="metadata-date">
+      <Icon name="fa6-regular:calendar" size={20} />
+      {formattedDate}
+    </div>
     <Tags
       tags={frontmatter.tags.map((tag: string) => ({
         name: tag,
@@ -36,5 +40,9 @@ const formattedDate = dateFormatter.format(new Date(frontmatter.pubDate));
     display: flex;
     flex-direction: column;
     gap: 0.2rem;
+  }
+  .metadata-date {
+    display: flex;
+    gap: 0.5rem;
   }
 </style>

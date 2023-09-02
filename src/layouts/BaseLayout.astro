@@ -24,7 +24,7 @@ const baseTitle = "fa-sharp";
   <body>
     <Header />
     <main>
-      {pageTitle && <h1>{pageTitle}</h1>}
+      {pageTitle && <h1 transition:name={pageTitle}>{pageTitle}</h1>}
       <slot />
     </main>
     <Footer />
