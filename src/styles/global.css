@@ -9,9 +9,8 @@ html.dark {
   color: #fff;
 }
 
-button {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, sans-serif;
+* {
+  box-sizing: border-box;
 }
 
 body {
@@ -22,13 +21,14 @@ body {
   line-height: 1.5;
 }
 
-* {
-  box-sizing: border-box;
-}
-
 h1 {
   margin: 1rem 0;
   font-size: 2.5rem;
+}
+
+button {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, sans-serif;
 }
 
 li {

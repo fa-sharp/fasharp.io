@@ -1,0 +1,16 @@
+---
+import { Image } from "astro:assets";
+
+const { src, ...attrs } = Astro.props;
+---
+
+<div class="image-wrapper">
+  <Image src={src} {...attrs} />
+</div>
+
+<style>
+  .image-wrapper {
+    overflow: auto;
+    margin-block: 1rem;
+  }
+</style>

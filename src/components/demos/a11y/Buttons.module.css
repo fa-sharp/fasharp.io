@@ -1,0 +1,24 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+
+  height: 12rem;
+  width: 17rem;
+
+  border: 1px solid #000000;
+  border-radius: 4px;
+}
+
+.button {
+  min-width: 5rem;
+  min-height: 5rem;
+
+  padding: 1rem;
+  /* border: rgb(62, 154, 60) solid; */
+  border-radius: 6px;
+
+  background: rgb(213, 213, 213);
+}
