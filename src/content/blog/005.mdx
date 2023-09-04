@@ -12,7 +12,9 @@ tags: ["keyboard", "a11y", "learning"]
 
 import { DivButtons, PlainButtons } from "~components/demos/a11y/Buttons";
 
-There are some folks who rely on the keyboard as their primary navigation device. As someone who's experienced chronic hand and arm pain, I was one of those people for a while, and I still do prefer to use the keyboard as much as possible, to reduce the strain of constantly moving between the keyboard and mouse. Let's talk a little about how we can ensure our buttons are accessible to these users, and dig into what 'accessibility' even means in this context.
+There are some folks on the web who rely on the keyboard as their primary navigation device. As someone who's experienced chronic hand and arm pain, I was one of those people for a while, and I still do prefer to use the keyboard as much as possible, to reduce the strain of constantly moving between the keyboard and mouse. Let's talk a little about how we can ensure our buttons are accessible to these users, and dig into what 'accessibility' even means in this context.
+
+### The magic of the 'button' element
 
 Let's say you've got a widget with a series of items, where you can click on each one to lead to more details:
 
@@ -20,19 +22,19 @@ Let's say you've got a widget with a series of items, where you can click on eac
 
 Not bad, it works (if you're using a mouse). But even if you're using a mouse, you can probably already sense something is off, right? First of all, there's little visual indication that these are actually buttons that you can click on. And when you do click them, there's no visual feedback that you're in the process of clicking. Finally, try navigating these items and selecting them using just your keyboard ('tab', 'shift-tab', 'space', and 'enter' keys). It won't work.
 
-If you look at the code, I've written these items as HTML **div** elements:
+If you look at the HTML code in DevTools, I've written these items as HTML **div** elements:
 
-```
+```html
 <div>#1</div>
 <div>#2</div>
 ...
 ```
 
-**Div**s are generic HTML elements that don't really mean much of anything. They're useful to group items together and add styling, but that's about it. There's no indication to the browser that these are actually buttons that you can click on! And so, we've left keyboard users with a crappy experience (they'll need to use some sort of added software/simulator just to be able to use this widget). Unfortunately, this happens _way_ more often on the web than it should.
+**Div**s are generic HTML elements that don't mean much of anything to the browser. They're useful to group items together and add styling, but that's about it. Even though we've added click listeners to each item, the browser doesn't 'know' that these are actually buttons that are meant to be interacted with! And so, we've left keyboard users with a pretty crappy experience - they'll need to use some sort of added software/simulator just to be able to use this widget.
 
 So, let's change all of these to **button** elements instead and see what happens:
 
-```
+```html
 <button>#1</button>
 <button>#2</button>
 ...
@@ -40,10 +42,16 @@ So, let's change all of these to **button** elements instead and see what happen
 
 <PlainButtons client:visible />
 
-Interesting! There's some immediate visual changes: a border of sorts has been added, and the text is now centered within each item. Also, with the mouse, notice that _while clicking_ on the element, there is a subtle change in the appearance (hold down the mouse to see this more clearly). Finally, let's see if we can now navigate these buttons using the keyboard: you should be able to use 'tab' and 'shift-tab' to move forwards and backwards, and then 'space' or 'enter' to select them. Notice that as we navigate this way, the browser is adding an **outline** to clearly show which button we're on.
+Interesting! There are some immediate visual changes: a border of sorts has been added, and the text is now centered within each item. Also, with the mouse, notice that _while clicking_ on the element, there is a subtle change in the appearance (hold down the mouse to see this more clearly). Finally, let's see if we can now navigate these buttons using the keyboard: you should be able to use 'tab' and 'shift-tab' to move forwards and backwards, and then 'space' or 'enter' to select them. Notice that as we navigate this way, the browser is adding an **outline** to clearly show which button we're on.
 
 We got all of this functionality simply by changing the **div**s to **button**s! No extra code, no CSS, no JavaScript, nada!
 
 ### Accessibility by default
 
-The first thing to understand about keyboard accessibility (and accessibility on the web in general) is that the browser **tries to be accessible by default**. Now, this doesn't mean it always gets it right, but it _does_ mean that oftentimes, we just need to **get out of the way** and let the browser do its thing. In this case, simply using the correct, semantic 'button' element enabled a slew of important accessibility features.
+One of the most important things to understand about keyboard accessibility (and accessibility on the web in general) is that the browser **tries to be accessible by default**. Now, this doesn't mean the browser always gets it right, but it _does_ mean that oftentimes, we just need to **get out of the way** and let the browser do its thing. In this case, simply using the correct, semantic 'button' element enables a slew of important accessibility features.
+
+Using the correct, semantic HTML element isn't just good for keyboard accessibility - it's also necessary for folks with visual impairments, who might be using a tool like Apple's VoiceOver to read the page. By using the 'button' element, VoiceOver will announce to the user that these are in fact buttons that are meant to be interacted with. There are lots of [semantic HTML elements](https://webaim.org/resources/htmlcheatsheet/) to help organize and make sense of your site's layout - use them!
+
+### Styling
+
+Alright, so now we've made sure that we're using the correct HTML elements. But we still want to make it pretty, right?

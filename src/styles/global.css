@@ -35,6 +35,11 @@ li {
   margin-block: 0.3rem;
 }
 
+pre {
+  border-radius: 6px;
+  padding: 1rem;
+}
+
 .dark a {
   color: #9ed1e4;
 }

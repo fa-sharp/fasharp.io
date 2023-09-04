@@ -17,7 +17,7 @@ const formattedDate = dateFormatter.format(new Date(frontmatter.pubDate));
 <BaseLayout pageTitle={frontmatter.title}>
   <div class="metadata">
     <div class="metadata-date">
-      <Icon name="fa6-regular:calendar" size={20} />
+      <Icon aria-label="date" name="fa6-regular:calendar" size={20} />
       {formattedDate}
     </div>
     <Tags
