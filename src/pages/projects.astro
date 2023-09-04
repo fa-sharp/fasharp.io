@@ -1,0 +1,52 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "~layouts/BaseLayout.astro";
+
+const pageTitle = "Projects";
+const projects = await getCollection("projects");
+---
+
+<BaseLayout {pageTitle}>
+  <div class="table-wrapper">
+    <table>
+      {
+        ["Project", "Code", "Tools", "Description"].map((header) => (
+          <th>{header}</th>
+        ))
+      }
+      {
+        projects.map((project) => (
+          <tr>
+            <td>
+              <a href={project.data.link}>{project.data.name}</a>
+            </td>
+            <td>
+              <a href={project.data.code}>GitHub</a>
+            </td>
+            <td>{project.data.tools.join(", ")}</td>
+            <td>{project.data.description}</td>
+          </tr>
+        ))
+      }
+    </table>
+  </div>
+</BaseLayout>
+
+<style>
+  .table-wrapper {
+    overflow: auto;
+  }
+
+  table {
+    min-width: 500px;
+  }
+
+  table,
+  th,
+  td {
+    border: 1px solid;
+  }
+  td {
+    padding: 0.5rem;
+  }
+</style>

@@ -1,0 +1,9 @@
+name: Piano and Staff Visualizer
+link: http://project-skyblue-piano.vercel.app/
+code: https://github.com/fa-sharp/virtual-keyboard-display
+tools:
+  - TypeScript
+  - React
+description:
+  A real-time piano and music staff visualizer, designed for music educators
+  teaching online.

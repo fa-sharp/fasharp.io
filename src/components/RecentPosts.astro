@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import BlogPost from "./BlogPostLink.astro";
+import { Icon } from "astro-icon/components";
 
 /** The five latest posts */
 const recentPosts = (
@@ -11,11 +12,17 @@ const recentPosts = (
 ---
 
 <section class="container">
-  <h3 class="heading">Recent Posts</h3>
+  <h3 class="heading">
+    Recent Posts <a href="/rss.xml"><Icon name="fa6-solid:rss" /></a>
+  </h3>
   <ul class="list">
     {
       recentPosts.map((post) => (
-        <BlogPost url={`/blog/${post.slug}`} title={post.data.title} />
+        <BlogPost
+          url={`/blog/${post.slug}`}
+          title={post.data.title}
+          date={post.data.pubDate}
+        />
       ))
     }
   </ul>
@@ -33,6 +40,9 @@ const recentPosts = (
     box-shadow: 0px 1px 3px 1px rgb(161 161 161);
   }
   .heading {
+    display: flex;
+    justify-content: space-between;
+
     margin-block: 0.3rem;
   }
   .list {
