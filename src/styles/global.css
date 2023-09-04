@@ -2,11 +2,15 @@ html {
   background-color: #f1f5f9;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
     Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, sans-serif;
+
+  --accent: #176e8e;
 }
 
 html.dark {
   background-color: #212121;
   color: #fff;
+
+  --accent: #9ed1e4;
 }
 
 * {
@@ -40,8 +44,8 @@ pre {
   padding: 1rem;
 }
 
-.dark a {
-  color: #9ed1e4;
+a {
+  color: var(--accent);
 }
 
 /* nav styles */

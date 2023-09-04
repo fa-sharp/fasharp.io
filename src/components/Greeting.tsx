@@ -24,7 +24,6 @@ export default function Greeting({
             background: 0,
             border: 0,
             padding: 0,
-            textDecoration: "underline",
             cursor: "pointer",
             fontSize,
             color,
