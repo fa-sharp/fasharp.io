@@ -40,3 +40,26 @@ export function PlainButtons() {
     </div>
   );
 }
+
+export function FancyButtons() {
+  const [inView, setInView] = useState(0);
+
+  return !inView ? (
+    <div className={styles.container}>
+      {[1, 2, 3, 4, 5, 6].map((num) => (
+        <button
+          className={styles["fancy-button"]}
+          onClick={() => setInView(num)}
+        >
+          #{num}
+        </button>
+      ))}
+    </div>
+  ) : (
+    <div className={styles.container}>
+      <button className={styles["fancy-button"]} onClick={() => setInView(0)}>
+        #{inView} details (click to return)
+      </button>
+    </div>
+  );
+}

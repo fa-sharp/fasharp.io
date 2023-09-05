@@ -17,8 +17,29 @@
   min-height: 5rem;
 
   padding: 1rem;
-  /* border: rgb(62, 154, 60) solid; */
   border-radius: 6px;
 
   background: rgb(213, 213, 213);
+}
+
+.fancy-button {
+  min-width: 5rem;
+  min-height: 5rem;
+
+  padding: 1rem;
+  border-radius: 6px;
+
+  background: white;
+  border: solid 1px hsl(196, 40%, 50%);
+  cursor: pointer;
+}
+.fancy-button:hover {
+  background-color: hsl(196, 50%, 90%);
+}
+.fancy-button:focus:active {
+  background-color: hsl(196, 50%, 80%);
+}
+.fancy-button:focus-visible {
+  outline: solid 2px hsl(14, 90%, 60%);
+  outline-offset: 2px;
 }

@@ -47,7 +47,9 @@ Brilliant! All of the main text and styling is already there. So if the user has
 
 ### What's the big deal?
 
-It looks like we've shaved off some initial loading time by using this pattern. But still, we're talking about milliseconds here - is it really that important? Well, imagine that instead of that 5KB Greeting component, we had a **50KB** interactive media player somewhere on the page. Or, a **500KB** rich text editor. Well now, that's gonna make a noticeable difference in loading time. _Especially_ for folks who might [not have access to high-speed internet](https://www.npr.org/2022/05/11/1098368187/42-million-americans-dont-have-high-speed-internet-local-providers-may-be-the-ke).
+So it looks like we've shaved off some initial loading time by using this pattern. But still, we're talking about milliseconds here - is it really that important? Well, imagine that instead of that 5KB Greeting component, we had a **50KB** interactive media player somewhere on the page. Or, a **500KB** rich text editor. Well now, that's gonna make a noticeable difference in loading time. _Especially_ for folks who might [not have access to high-speed internet](https://www.npr.org/2022/05/11/1098368187/42-million-americans-dont-have-high-speed-internet-local-providers-may-be-the-ke).
+
+In a lot of modern frameworks, these kinds of things are put in as an afterthought: "Oh, your site is loading slowly? Let's put some lazy loading here and there, etc." But frameworks built around islands, like Astro and Fresh, are built from the ground up to be this optimized, and that bodes well for performance.
 
 ### Use cases
 
