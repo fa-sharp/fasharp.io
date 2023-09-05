@@ -1,0 +1,9 @@
+name: My website
+link: https://fasharp.io/
+category: websites
+tools:
+  - Astro
+  - TypeScript
+description: My developer website, designed to be minimal and informative.
+  Makes use of Astro's content collections to organize blog posts,
+  projects, and more.

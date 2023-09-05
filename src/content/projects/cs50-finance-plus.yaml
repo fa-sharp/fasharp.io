@@ -1,10 +1,11 @@
 name: CS50 Finance++
 link: https://cs50-finance-plus.fly.dev/
-code: https://github.com/fa-sharp/cs50-finance-plus
+category: learning
 tools:
   - Python
   - Flask
+  - SQLAlchemy
   - Postgres
 description:
   A full-stack stock portfolio app, complete with users, transactions, and real-time stock data
-  and gain/loss info. Inspired by a CS50 assignment, and written in Python and Flask
+  and gain/loss info. Started as a CS50 assignment.

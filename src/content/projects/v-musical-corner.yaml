@@ -1,0 +1,10 @@
+name: Musical Corner
+link: https://play-piano-svelte.vercel.app/
+category: apps
+tools:
+  - Svelte
+  - TypeScript
+  - WebSockets
+description:
+  An experimental playground of musical games and real-time collaboration,
+  inspired by Google's Chrome Music Lab.

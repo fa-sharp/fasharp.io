@@ -1,0 +1,11 @@
+name: Weather
+link: https://lightning-weather.vercel.app
+category: apps
+tools:
+  - Next.js
+  - SQLite
+  - Rust
+  - TypeScript
+description:
+  A lightning-fast weather app, with 7-day forecasts and hourly graphs.
+  Includes a city database, served by an API written in Rust.

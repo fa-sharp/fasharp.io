@@ -1,0 +1,6 @@
+name: Advent of Code 2022
+link: https://github.com/fa-sharp/advent-of-code-2022
+category: learning
+tools:
+  - Rust
+description: Advent of Code solutions written in Rust.

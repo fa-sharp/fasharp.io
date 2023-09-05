@@ -8,27 +8,31 @@ const projects = await getCollection("projects");
 
 <BaseLayout {pageTitle}>
   <div class="table-wrapper">
-    <table>
-      {
-        ["Project", "Code", "Tools", "Description"].map((header) => (
-          <th>{header}</th>
-        ))
-      }
-      {
-        projects.map((project) => (
-          <tr>
-            <td>
-              <a href={project.data.link}>{project.data.name}</a>
-            </td>
-            <td>
-              <a href={project.data.code}>GitHub</a>
-            </td>
-            <td>{project.data.tools.join(", ")}</td>
-            <td>{project.data.description}</td>
-          </tr>
-        ))
-      }
-    </table>
+    {
+      (["apps", "websites", "learning"] as const).map((category) => (
+        <>
+          <h2>{category[0].toLocaleUpperCase() + category.slice(1)}</h2>
+          <table>
+            {["Name & Link", "Tools & Languages", "Description"].map(
+              (header) => (
+                <th>{header}</th>
+              )
+            )}
+            {projects
+              .filter((p) => p.data.category === category)
+              .map((project) => (
+                <tr>
+                  <td>
+                    <a href={project.data.link}>{project.data.name}</a>
+                  </td>
+                  <td>{project.data.tools.join(", ")}</td>
+                  <td>{project.data.description}</td>
+                </tr>
+              ))}
+          </table>
+        </>
+      ))
+    }
   </div>
 </BaseLayout>
 
@@ -38,13 +42,17 @@ const projects = await getCollection("projects");
   }
 
   table {
-    min-width: 500px;
+    min-width: 600px;
   }
 
   table,
   th,
   td {
     border: 1px solid;
+    border-radius: 4px;
+  }
+  tr td:first-child {
+    min-width: 8.5rem;
   }
   td {
     padding: 0.5rem;
