@@ -4,7 +4,11 @@ html {
     Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, sans-serif;
 
   --accent: #176e8e;
+  --bright: #ae5709;
+  --contrast: #9059e3;
   --body-width: 84ch;
+  --radius: 6px;
+  --card-shadow: 0px 1px 3px 1px rgb(161 161 161);
 }
 
 html.dark {
@@ -12,6 +16,7 @@ html.dark {
   color: #fff;
 
   --accent: #9ed1e4;
+  --bright: #e49273;
 }
 
 * {
@@ -41,7 +46,7 @@ li {
 }
 
 pre {
-  border-radius: 6px;
+  border-radius: var(--radius);
   padding: 1rem;
 }
 
@@ -65,13 +70,13 @@ nav {
   width: 40px;
   height: 5px;
   margin-bottom: 10px;
-  background-color: #ff9776;
+  background-color: var(--bright);
 }
 .nav-links {
   width: 100%;
   top: 5rem;
   left: 48px;
-  background-color: #ff9776;
+  background-color: var(--bright);
   display: none;
   margin: 0;
 }
@@ -80,6 +85,10 @@ nav {
   display: block;
   text-align: center;
   padding: 10px 0;
+  border: solid transparent;
+  border-radius: var(--radius);
+
+  color: var(--bright);
   text-decoration: none;
   font-size: 1.2rem;
   font-weight: bold;
@@ -91,7 +100,7 @@ nav {
 
 .nav-links a:hover,
 .nav-links a:focus {
-  background-color: #ff9776;
+  /* border: solid var(--accent); */
   text-decoration: underline;
 }
 

@@ -16,7 +16,7 @@ export default function Greeting({
 
   return (
     <div>
-      <h3>
+      <h1>
         <button
           style={{
             background: 0,
@@ -24,13 +24,14 @@ export default function Greeting({
             padding: 0,
             cursor: "pointer",
             fontSize,
+            textDecoration: "underline",
             color,
           }}
           onClick={() => setGreeting(randomMessage())}
         >
           {greeting}
         </button>
-      </h3>
+      </h1>
     </div>
   );
 }

@@ -8,7 +8,7 @@ export type Props = {
   pageTitle?: string;
 };
 const { pageTitle } = Astro.props;
-const baseTitle = "fa-sharp";
+const baseTitle = "Farshad Z";
 ---
 
 <html lang="en">
@@ -19,7 +19,7 @@ const baseTitle = "fa-sharp";
     <meta name="generator" content={Astro.generator} />
     <ViewTransitions />
 
-    <title>{baseTitle + (pageTitle ? `: ${pageTitle}` : "")}</title>
+    <title>{baseTitle + (pageTitle ? ` | ${pageTitle}` : "")}</title>
   </head>
   <body>
     <Header />
