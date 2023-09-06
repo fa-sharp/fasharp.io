@@ -1,0 +1,59 @@
+---
+import Icon from "node_modules/astro-icon/components/Icon.astro";
+
+interface Props {
+  url: string;
+  text: string;
+}
+const { url, text } = Astro.props;
+---
+
+<div class="share">
+  <Icon aria-label="sharing links" name="fa6-solid:share-nodes" size={20} />
+  <a
+    href=`https://www.facebook.com/sharer.php?u=${encodeURIComponent(url)}`
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <Icon name="fa6-brands:facebook" size={24} />
+  </a>
+  <a
+    href=`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`
+    target="_blank"
+  >
+    <Icon name="fa6-brands:twitter" size={24} />
+  </a>
+  <a
+    href=`https://reddit.com/submit?url=${encodeURIComponent(url)}&title=${encodeURIComponent(text)}`
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <Icon name="fa6-brands:reddit" size={24} />
+  </a>
+  <a
+    href=`mailto:?subject=${encodeURIComponent(text)}&body=${encodeURIComponent(url)}`
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <Icon name="fa6-regular:envelope" size={24} />
+  </a>
+</div>
+
+<style>
+  .share {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+  .share > a {
+    color: rgb(119, 119, 119);
+    line-height: 0;
+  }
+  .share > a:hover {
+    color: black;
+  }
+
+  :global(.dark) .share > a:hover {
+    color: white;
+  }
+</style>

@@ -17,13 +17,14 @@ const dateFormatter = new Intl.DateTimeFormat("en-US", {
   year: "numeric",
 });
 const formattedDate = dateFormatter.format(new Date(post.data.pubDate));
+const postUrl = `https://fasharp.io/blog/${post.slug}`;
 ---
 
 <BaseLayout
   pageTitle={post.data.title}
   head={{
     ogTitle: post.data.title,
-    ogUrl: `https://fasharp.io/blog/${post.slug}`,
+    ogUrl: postUrl,
     ogDescription: post.data.description,
     ogImage: post.data.image?.url,
     ogType: "article",
@@ -58,5 +59,8 @@ const formattedDate = dateFormatter.format(new Date(post.data.pubDate));
   .metadata-date {
     display: flex;
     gap: 0.5rem;
+  }
+  .social {
+    margin-block: 1rem;
   }
 </style>
