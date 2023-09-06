@@ -7,5 +7,6 @@ tools:
   - SQLAlchemy
   - Postgres
 description:
-  A full-stack stock portfolio app, complete with users, transactions, and real-time stock data
-  and gain/loss info. Started as a CS50 assignment.
+  A full-stack stock portfolio app that started as a CS50 assignment. Includes user login,
+  buy/sell transactions, real-time stock data, and gain/loss info. Data is pulled from the
+  Finnhub.io API.

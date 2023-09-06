@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
 import BaseLayout from "~layouts/BaseLayout.astro";
 
@@ -7,33 +8,46 @@ const projects = await getCollection("projects");
 ---
 
 <BaseLayout {pageTitle}>
-  <div class="table-wrapper">
-    {
-      (["apps", "websites", "learning"] as const).map((category) => (
-        <>
-          <h2>{category[0].toLocaleUpperCase() + category.slice(1)}</h2>
-          <table>
-            {["Name & Link", "Tools & Languages", "Description"].map(
-              (header) => (
-                <th>{header}</th>
-              )
-            )}
-            {projects
-              .filter((p) => p.data.category === category)
-              .map((project) => (
-                <tr>
-                  <td>
-                    <a href={project.data.link}>{project.data.name}</a>
-                  </td>
-                  <td>{project.data.tools.join(", ")}</td>
-                  <td>{project.data.description}</td>
-                </tr>
-              ))}
-          </table>
-        </>
-      ))
-    }
-  </div>
+  {
+    (["apps", "websites", "learning"] as const).map((category) => (
+      <div class="table-wrapper">
+        <h2>{category[0].toLocaleUpperCase() + category.slice(1)}</h2>
+        <table>
+          {["Preview/Link", "Project", "Tools Used"].map((header) => (
+            <th>{header}</th>
+          ))}
+          {projects
+            .filter((p) => p.data.category === category)
+            .map((project) => (
+              <tr>
+                <td>
+                  {project.data.image ? (
+                    <a href={project.data.link} target="_blank">
+                      <Image
+                        class="project-image"
+                        src={project.data.image}
+                        alt={project.data.name}
+                        width={180}
+                        height={120}
+                      />
+                    </a>
+                  ) : (
+                    <a href={project.data.link} target="_blank">
+                      Link
+                    </a>
+                  )}
+                </td>
+                <td>
+                  <strong>{project.data.name}</strong>:{" "}
+                  {project.data.description}
+                </td>
+                <td>{project.data.tools.join(", ")}</td>
+              </tr>
+            ))}
+        </table>
+      </div>
+    ))
+  }
 </BaseLayout>
 
 <style>
@@ -42,19 +56,30 @@ const projects = await getCollection("projects");
   }
 
   table {
-    min-width: 600px;
+    min-width: calc(var(--body-width) - 2rem);
   }
 
   table,
   th,
   td {
-    border: 1px solid;
-    border-radius: 4px;
+    border: 1px solid gray;
   }
-  tr td:first-child {
-    min-width: 8.5rem;
+  tr td:first-child:has(img) {
+    display: inline-flex;
+    padding: 0;
+  }
+  th {
+    padding: 0.2rem;
   }
   td {
     padding: 0.5rem;
+  }
+
+  .project-image {
+    object-fit: cover;
+    object-position: top;
+  }
+  .project-image:hover {
+    background-color: aqua;
   }
 </style>

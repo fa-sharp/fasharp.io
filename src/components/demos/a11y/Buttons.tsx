@@ -1,4 +1,4 @@
-import { useEffect, useState } from "preact/hooks";
+import { useState } from "preact/hooks";
 import styles from "./Buttons.module.css";
 
 export function DivButtons() {

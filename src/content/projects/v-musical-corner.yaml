@@ -1,5 +1,6 @@
-name: Musical Corner
+name: 🎼 Musical Corner
 link: https://play-piano-svelte.vercel.app/
+image: src/assets/projects/musical-corner.png
 category: apps
 tools:
   - Svelte

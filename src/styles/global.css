@@ -4,6 +4,7 @@ html {
     Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, sans-serif;
 
   --accent: #176e8e;
+  --body-width: 84ch;
 }
 
 html.dark {
@@ -20,7 +21,7 @@ html.dark {
 body {
   margin: 0 auto;
   width: 100%;
-  max-width: 80ch;
+  max-width: var(--body-width);
   padding: 1rem;
   line-height: 1.5;
 }
