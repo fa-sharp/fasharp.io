@@ -1,6 +1,6 @@
 name: ⚡️ Lightning Weather
 link: https://lightning-weather.vercel.app
-image: src/assets/projects/lightning-weather.png
+image: ~assets/projects/lightning-weather.png
 category: apps
 tools:
   - Next.js

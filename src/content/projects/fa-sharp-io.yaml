@@ -1,7 +1,7 @@
 name: 🧑🏻‍💻 My developer website
 link: https://fasharp.io/
 category: websites
-image: src/assets/projects/fa-sharp-io.png
+image: ~assets/projects/fa-sharp-io.png
 tools:
   - Astro
   - TypeScript

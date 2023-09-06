@@ -19,14 +19,15 @@ const blogCollection = defineCollection({
 
 const projectsCollection = defineCollection({
   type: "data",
-  schema: z.object({
-    name: z.string(),
-    description: z.string(),
-    link: z.string().url(),
-    image: z.optional(z.string()),
-    category: z.enum(["apps", "learning", "websites"]),
-    tools: z.array(z.string()),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      name: z.string(),
+      description: z.string(),
+      link: z.string().url(),
+      image: z.optional(image()),
+      category: z.enum(["apps", "learning", "websites"]),
+      tools: z.array(z.string()),
+    }),
 });
 
 export const collections = {
