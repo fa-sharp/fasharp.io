@@ -2,8 +2,13 @@
 import BaseLayout from "./BaseLayout.astro";
 import Tags from "../components/Tags.astro";
 import { Icon } from "astro-icon/components";
+import type { CollectionEntry } from "astro:content";
 
-const { frontmatter } = Astro.props;
+interface Props {
+  post: CollectionEntry<"blog">;
+}
+
+const { post } = Astro.props;
 const dateFormatter = new Intl.DateTimeFormat("en-US", {
   timeZone: "UTC",
   weekday: "long",
@@ -11,23 +16,32 @@ const dateFormatter = new Intl.DateTimeFormat("en-US", {
   day: "numeric",
   year: "numeric",
 });
-const formattedDate = dateFormatter.format(new Date(frontmatter.pubDate));
+const formattedDate = dateFormatter.format(new Date(post.data.pubDate));
 ---
 
-<BaseLayout pageTitle={frontmatter.title}>
+<BaseLayout
+  pageTitle={post.data.title}
+  head={{
+    ogTitle: post.data.title,
+    ogUrl: `https://fasharp.io/blog/${post.slug}`,
+    ogDescription: post.data.description,
+    ogImage: post.data.image?.url,
+    ogType: "article",
+  }}
+>
   <div class="metadata">
     <div class="metadata-date">
       <Icon aria-label="date" name="fa6-regular:calendar" size={20} />
       {formattedDate}
     </div>
     <Tags
-      tags={frontmatter.tags.map((tag: string) => ({
+      tags={post.data.tags.map((tag: string) => ({
         name: tag,
         url: `/tags/${tag}`,
       }))}
     />
   </div>
-  <img src={frontmatter.image.url} alt={frontmatter.image.alt} width="300" />
+  <img src={post.data.image?.url} alt={post.data.image?.alt} width="300" />
   <article>
     <slot />
   </article>

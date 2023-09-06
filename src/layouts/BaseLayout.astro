@@ -6,8 +6,15 @@ import "../styles/global.css";
 
 export type Props = {
   pageTitle?: string;
+  head?: {
+    ogTitle?: string;
+    ogDescription?: string;
+    ogUrl?: string;
+    ogImage?: string;
+    ogType?: string;
+  };
 };
-const { pageTitle } = Astro.props;
+const { pageTitle, head } = Astro.props;
 const baseTitle = "Farshad Z";
 ---
 
@@ -17,6 +24,16 @@ const baseTitle = "Farshad Z";
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
+    {head?.ogTitle && <meta property="og:title" content={head.ogTitle} />}
+    {
+      head?.ogDescription && (
+        <meta property="og:description" content={head.ogDescription} />
+      )
+    }
+    {head?.ogUrl && <meta property="og:url" content={head.ogUrl} />}
+    {head?.ogImage && <meta property="og:image" content={head.ogImage} />}
+    {head?.ogType && <meta property="og:type" content={head.ogType} />}
+
     <ViewTransitions />
 
     <title>{baseTitle + (pageTitle ? ` | ${pageTitle}` : "")}</title>

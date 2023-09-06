@@ -5,7 +5,7 @@ status: published
 description: "Ensuring our buttons are accessible to keyboard users"
 image:
   url: "https://images.unsplash.com/photo-1515378960530-7c0da6231fb1?auto=format&fit=crop&w=600&q=80"
-  alt: "a piano"
+  alt: "person sitting at a keyboard"
 pubDate: 2023-09-05
 tags: ["keyboard", "a11y", "learning"]
 ---
@@ -16,7 +16,7 @@ import {
   FancyButtons,
 } from "~components/demos/a11y/Buttons";
 
-There are some folks on the web who rely on the keyboard as their primary navigation device. As someone who's experienced chronic hand and arm pain, I was one of those people for a while, and I still do prefer to use the keyboard as much as possible, to reduce the strain of constantly moving between the keyboard and mouse. Let's talk a little about how we can ensure our buttons are accessible to these users, and dig into what 'accessibility' even means in this context.
+As someone who's experienced chronic hand and arm pain, I prefer to use the keyboard as much as possible, to reduce the strain of constantly moving between the keyboard and mouse. There are also some folks who rely _completely_ on the keyboard (or another device apart from the mouse) as their primary navigation tool on the web. Let's talk a little about how we can ensure our buttons are accessible to these users.
 
 ### The magic of the 'button' element
 
@@ -85,7 +85,7 @@ Now, remember how the items (once we properly labeled them as buttons) changed s
 }
 ```
 
-Finally, for our keyboard users, we can style the outline that automatically appears when they're navigating with the 'tab' key. When a keyboard user focuses on a specific item, it triggers the `:focus-visible` state (note this is different from the `:focus` state, which will trigger for both mouse and keyboard users). Using this state, let's style the outline as a bright, contrasting color, and also add an `outline-offset` that will separate the outline from the button to make it super clear:
+Finally, for our keyboard users, we can style the outline that automatically appears when they're navigating with the 'tab' key. When a keyboard user focuses on a specific item, it triggers the `:focus-visible` state (note this is different from the `:focus` state, which will trigger for both mouse and keyboard users). Using this state, let's style the outline as a bright, contrasting color, and also add an `outline-offset` that will separate the outline from the button to make it more prominent:
 
 ```css
 .fancy-button:focus-visible {
@@ -98,9 +98,19 @@ Here is the final product. Notice all the different states of the buttons, and b
 
 <FancyButtons client:visible />
 
-Questionable color and design choices aside, we've created something much more accessible and clear - not just for keyboard users, but for all our users!
+We've created something much more accessible and clear - not just for keyboard users, but for all our users!
 
-## Resources
+### Conclusion
+
+Keyboard accessibility doesn't have to be a scary thing, and I hope this article gives you some ideas on how to approach it. In general, when we're building something that may be complicated/challenging for keyboard users, we'll want to:
+
+1. Figure out what the browser/device does by default, and know _why_ it does that.
+2. Figure out what tools are given to us through HTML and CSS, before reaching for JavaScript.
+3. Incrementally add styling and scripting/interactivity, while double-checking that the accessibility features are still there each step of the way.
+
+Of course, this is a _huge_ topic with lots to explore, and I encourage you to dig into it further! Your keyboard users will thank you 😉.
+
+## Further Resources
 
 - [WebAIM article](https://webaim.org/techniques/keyboard/) on keyboard accessibility
 - [web.dev article](https://web.dev/learn/accessibility/focus/) on keyboard focus
