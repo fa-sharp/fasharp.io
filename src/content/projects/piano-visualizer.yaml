@@ -9,4 +9,4 @@ tools:
   - TypeScript
 description:
   A real-time piano and music staff visualizer, designed for music educators
-  teaching online.
+  teaching online. Supports MIDI input.
