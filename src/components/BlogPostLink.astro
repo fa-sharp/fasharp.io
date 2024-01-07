@@ -14,7 +14,7 @@ const dateFormatter = new Intl.DateTimeFormat("en-US", {
     // don't show year if it's the current year
     date?.getUTCFullYear() === new Date().getUTCFullYear()
       ? undefined
-      : "2-digit",
+      : "numeric",
 });
 const formattedDate = date ? dateFormatter.format(date) : undefined;
 ---

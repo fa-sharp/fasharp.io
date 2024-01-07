@@ -5,26 +5,24 @@ import { getCollection, type CollectionEntry } from "astro:content";
 
 export async function getStaticPaths() {
   const posts = await getCollection("blog", ({ data }) =>
-    import.meta.env.PROD ? data.status !== "draft" : true
+    import.meta.env.PROD ? data.status !== "draft" : true,
   );
   const tags = [...new Set(posts.flatMap((post) => post.data.tags))].sort(
-    (a, b) => a.localeCompare(b)
+    (a, b) => a.localeCompare(b),
   );
 
-  return tags.map((tag) => {
-    return {
-      params: {
-        tag,
-      },
-      props: { posts: posts.filter((post) => post.data.tags.includes(tag)) },
-    };
-  });
+  return tags.map((tag) => ({
+    params: {
+      tag,
+    },
+    props: { posts: posts.filter((post) => post.data.tags.includes(tag)) },
+  }));
 }
 export interface Props {
   posts: CollectionEntry<"blog">[];
 }
 const { posts } = Astro.props;
-const { tag } = Astro.params as { tag: string };
+const { tag } = Astro.params;
 ---
 
 <BaseLayout pageTitle={tag}>
