@@ -15,7 +15,7 @@ export type Props = {
   };
 };
 const { pageTitle, head } = Astro.props;
-const baseTitle = "Farshad Zadeh";
+const baseTitle = "fa-sharp";
 ---
 
 <html lang="en">
@@ -36,7 +36,7 @@ const baseTitle = "Farshad Zadeh";
 
     <ViewTransitions />
 
-    <title>{baseTitle + (pageTitle ? ` | ${pageTitle}` : "")}</title>
+    <title>{(pageTitle ? `${pageTitle} | ` : "") + baseTitle}</title>
   </head>
   <body>
     <Header />

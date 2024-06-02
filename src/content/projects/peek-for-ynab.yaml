@@ -1,0 +1,11 @@
+name: 🤑 Peek for YNAB
+link: https://peek-for-ynab.vercel.app/
+image: ~assets/projects/peek-for-ynab.webp
+category: apps
+tools:
+  - Plasmo
+  - React
+  - TypeScript
+description:
+  A browser extension for YNAB, to check on your spending plan and
+  quickly record transactions.
