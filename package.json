@@ -10,21 +10,21 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/mdx": "^2.0.4",
-    "@astrojs/preact": "^3.1.0",
-    "@astrojs/rss": "^4.0.2",
-    "astro": "^4.1.2",
-    "astro-embed": "^0.6.1",
+    "@astrojs/mdx": "^2.3.1",
+    "@astrojs/preact": "^3.3.0",
+    "@astrojs/rss": "^4.0.6",
+    "astro": "^4.9.2",
+    "astro-embed": "^0.6.2",
     "astro-icon": "1.0.2",
-    "preact": "^10.19.3",
+    "preact": "^10.22.0",
     "rehype-accessible-emojis": "^0.3.2",
     "remark-gfm": "^4.0.0",
-    "sharp": "^0.33.2"
+    "sharp": "^0.33.4"
   },
   "devDependencies": {
-    "@iconify-json/fa6-brands": "^1.1.18",
-    "@iconify-json/fa6-regular": "^1.1.18",
-    "@iconify-json/fa6-solid": "^1.1.20",
-    "typescript": "^5.3.3"
+    "@iconify-json/fa6-brands": "^1.1.19",
+    "@iconify-json/fa6-regular": "^1.1.19",
+    "@iconify-json/fa6-solid": "^1.1.21",
+    "typescript": "^5.4.5"
   }
 }
