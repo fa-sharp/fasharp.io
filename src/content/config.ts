@@ -25,7 +25,7 @@ const projectsCollection = defineCollection({
       description: z.string(),
       link: z.string().url(),
       image: z.optional(image()),
-      category: z.enum(["apps", "learning", "websites"]),
+      category: z.enum(["apps", "learning", "websites", "libraries"]),
       tools: z.array(z.string()),
     }),
 });

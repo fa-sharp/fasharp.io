@@ -7,5 +7,5 @@ tools:
   - React
   - TypeScript
 description:
-  A browser extension for YNAB, to check on your spending plan and
-  quickly record transactions.
+  A third-party Chrome extension for YNAB, that uses their API to display
+  your category balances and quickly record transactions.

@@ -8,5 +8,6 @@ tools:
   - Rust
   - TypeScript
 description:
-  A lightning-fast weather app, with 7-day forecasts and hourly graphs.
-  Includes a city database, served by an API written in Rust.
+  A lightning-fast weather app, with 7-day forecasts and hourly graphs, with data
+  from OpenWeatherMap. Includes a city database, served by a custom API using 
+  SQLite and Rust.

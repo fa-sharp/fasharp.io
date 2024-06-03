@@ -1,0 +1,12 @@
+name: 🎼 ABC Notation Editor
+link: https://fa-sharp.github.io/abc-notation-editor/
+category: libraries
+image: ~assets/projects/abc-editor.gif
+tools:
+  - React
+  - Vite
+  - TypeScript
+description:
+  A notation editor component to write simple melodies and tunes, inspired by rich text editors
+  like Draft.js. Can be easily integrated into a React project, and includes a core library 
+  that can be used for other frameworks.

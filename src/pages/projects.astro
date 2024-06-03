@@ -9,7 +9,7 @@ const projects = await getCollection("projects");
 
 <BaseLayout {pageTitle}>
   {
-    (["apps", "websites", "learning"] as const).map((category) => (
+    ["apps", "libraries", "websites", "learning"].map((category) => (
       <div class="table-wrapper">
         <h2>{category[0].toLocaleUpperCase() + category.slice(1)}</h2>
         <table>
@@ -22,17 +22,29 @@ const projects = await getCollection("projects");
               <tr>
                 <td>
                   {project.data.image ? (
-                    <a href={project.data.link} target="_blank">
+                    <a
+                      href={project.data.link}
+                      target="_blank"
+                      rel="noopener"
+                      referrerpolicy="no-referrer"
+                    >
                       <Image
                         class="project-image"
                         src={project.data.image}
                         alt={project.data.name}
-                        width={140}
+                        width={160}
                         height={110}
+                        densities={[1, 1.5]}
+                        loading={category === "apps" ? "eager" : "lazy"}
                       />
                     </a>
                   ) : (
-                    <a href={project.data.link} target="_blank">
+                    <a
+                      href={project.data.link}
+                      target="_blank"
+                      rel="noopener"
+                      referrerpolicy="no-referrer"
+                    >
                       Link
                     </a>
                   )}
@@ -57,29 +69,31 @@ const projects = await getCollection("projects");
 
   table {
     min-width: calc(var(--body-width) - 2rem);
+    border: none;
+    border-collapse: collapse;
+    border-spacing: 8px;
   }
 
-  table,
   th,
-  td {
-    border: 1px solid gray;
+  tr {
+    border-bottom: 1px solid var(--accent);
   }
-  tr td:first-child:has(img) {
-    display: inline-flex;
-    padding: 0;
+
+  tr:last-child {
+    border: none;
   }
+
   th {
     padding: 0.2rem;
   }
   td {
-    padding: 0.5rem;
+    padding: 0.6rem;
   }
 
   .project-image {
     object-fit: cover;
     object-position: top;
-  }
-  .project-image:hover {
-    background-color: aqua;
+    border-radius: 10px;
+    border: solid 1px gray;
   }
 </style>
