@@ -13,7 +13,7 @@ const projects = await getCollection("projects");
       <div class="table-wrapper">
         <h2>{category[0].toLocaleUpperCase() + category.slice(1)}</h2>
         <table>
-          {["Preview/Link", "Project", "Tools Used"].map((header) => (
+          {["Demo/Link", "Project", "Tools Used"].map((header) => (
             <th>{header}</th>
           ))}
           {projects
