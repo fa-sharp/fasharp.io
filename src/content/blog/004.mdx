@@ -18,7 +18,7 @@ import {
 
 As someone who's experienced chronic hand and arm pain, I prefer to use the keyboard as much as possible, to reduce the strain of constantly moving between the keyboard and mouse. There are also some folks who rely _completely_ on the keyboard (or another device apart from the mouse) as their primary navigation tool on the web. Let's talk a little about how we can ensure our buttons are accessible to these users.
 
-### The magic of the 'button' element
+### The magic of the `<button>` element
 
 Let's say you've got a widget with a series of items, where you can click on each one to lead to more details:
 
@@ -26,7 +26,7 @@ Let's say you've got a widget with a series of items, where you can click on eac
 
 Not bad, it works (if you're using a mouse). But even if you're using a mouse, you can probably already sense something is off. First of all, there's no visual indication that these are actually buttons that you can click on. And when you do click them, there's no visual feedback that you're in the process of clicking. Finally, try navigating these items and selecting them using just your keyboard ('tab', 'shift-tab', 'space', and 'enter' keys). It won't work.
 
-If you look at the HTML code in DevTools, I've written these items as HTML **div** elements:
+If you look at the HTML code in DevTools, I've written these items as HTML `<div>` elements:
 
 ```html
 <div>#1</div>
@@ -34,9 +34,9 @@ If you look at the HTML code in DevTools, I've written these items as HTML **div
 ...
 ```
 
-**Div**s are generic HTML elements that don't mean much of anything to the browser. They're useful to group items together and add styling, but that's about it. Even though we've added click listeners to each item, the browser doesn't 'know' that these are actually buttons that are meant to be interacted with! And so, we've left keyboard users with a pretty crappy experience - they'll need to use some sort of added software/simulator just to be able to use this widget.
+`<div>`s are generic HTML elements that don't mean much of anything to the browser. They're useful to group items together and add styling, but that's about it. Even though we've added click listeners to each item, the browser doesn't 'know' that these are actually buttons that are meant to be interacted with! And so, we've left keyboard users with a pretty crappy experience - they'll need to use some sort of added software/simulator just to be able to use this widget.
 
-So, let's change all of these to **button** elements instead and see what happens:
+So, let's change all of these to `<button>` elements instead and see what happens:
 
 ```html
 <button>#1</button>
@@ -52,9 +52,9 @@ We got all of this functionality simply by changing the **div**s to **button**s!
 
 ### Accessibility by default
 
-One of the most important things to understand about keyboard accessibility (and accessibility on the web in general) is that the browser **tries to be accessible by default**. Now, this doesn't mean the browser always gets it right, but it _does_ mean that oftentimes, we just need to get out of the way and let the browser do its thing. In this case, simply using the correct 'button' element enables a slew of important accessibility features.
+One of the most important things to understand about keyboard accessibility (and accessibility on the web in general) is that the browser **tries to be accessible by default**. Now, this doesn't mean the browser always gets it right, but it _does_ mean that oftentimes, we just need to get out of the way and let the browser do its thing. In this case, simply using the correct `<button>` element enables a slew of important accessibility features.
 
-Using the correct, semantic HTML element isn't just good for keyboard accessibility - it's also necessary for folks with visual impairments, who might be using a tool like Apple's VoiceOver to read the page. By using the 'button' element, VoiceOver will announce to the user that these are in fact buttons that are meant to be interacted with.
+Using the correct, semantic HTML element isn't just good for keyboard accessibility - it's also necessary for folks with visual impairments, who might be using a tool like Apple's VoiceOver to read the page. By using the `<button>` element, VoiceOver will announce to the user that these are in fact buttons that are meant to be interacted with.
 
 ### Styling
 
