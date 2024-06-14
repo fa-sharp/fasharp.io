@@ -60,7 +60,7 @@ Take a look at these icons:
 <Icon aria-label="square plus icon" name="fa6-solid:square-plus" size={24} />
 <Icon aria-label="square minus icon" name="fa6-solid:square-minus" size={24} />
 
-If these were buttons in an app that you were using for the first time, what would you think they do? Probably, something to do with adding and removing stuff, right? But adding and removing _what_ exactly?
+If these were buttons in an app that you were using for the first time, what would you think they do? Probably, something to do with adding and removing stuff, right? But... adding and removing _what_ exactly?
 
 Now look at these:
 
@@ -83,8 +83,8 @@ This seems like a small detail, but it could be _the_ difference for your visual
 
 Since an icon button won't have any clear, visual text label next to it, we need to make extra sure to add some _other_ labels in our HTML, including (but not limited to) the `title` and `aria-label` attributes:
 
-- The `title` attribute adds a visual tooltip to the button, which appears when the user hovers over the button with their cursor. So with the `title` attribute, we can generally assume that the user knows the _visual context_ of the button. (i.e. is the button part of a toolbar, or is it next to a specific item? etc..)
-- With the `aria-label` property, though, we can make no such assumption. Screen readers and other assistive devices will default to reading the `aria-label` property when there is one. So, in contrast to the `title` attribute, we'll want to make sure that the `aria-label` is as descriptive as possible.
+- The `title` attribute adds a visual tooltip to the button, which appears when the user hovers over the button with their cursor. So with the `title` attribute, we can generally assume that the user knows the _visual context_ of the button. (i.e. whether the button is part of a toolbar, or if it's next to a specific item, etc..)
+- With the `aria-label` property, we'll want to be more descriptive and include some context if possible. Screen readers and other assistive devices will default to reading the `aria-label` property when there is one.
 
 ```html
 <button class="icon-button" title="Save" aria-label="Save the current task">
