@@ -3,6 +3,7 @@ import BaseLayout from "./BaseLayout.astro";
 import Tags from "../components/Tags.astro";
 import { Icon } from "astro-icon/components";
 import type { CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
 
 interface Props {
   post: CollectionEntry<"blog">;
@@ -26,7 +27,7 @@ const postUrl = `https://fasharp.io/blog/${post.slug}`;
     ogTitle: post.data.title,
     ogUrl: postUrl,
     ogDescription: post.data.description,
-    ogImage: post.data.image?.url,
+    ogImage: post.data.image?.url.src,
     ogType: "article",
   }}
 >
@@ -42,7 +43,16 @@ const postUrl = `https://fasharp.io/blog/${post.slug}`;
       }))}
     />
   </div>
-  <img src={post.data.image?.url} alt={post.data.image?.alt} width="300" />
+  {
+    post.data.image && (
+      <Image
+        src={post.data.image.url}
+        alt={post.data.image.alt}
+        width={post.data.image.width || post.data.image.url.width}
+        height={post.data.image.height || post.data.image.url.height}
+      />
+    )
+  }
   <article>
     <slot />
   </article>

@@ -4,8 +4,10 @@ slug: what-are-islands
 status: published
 description: "What are 'islands' in web development?"
 image:
-  url: "https://images.unsplash.com/photo-1516091877740-fde016699f2c?auto=format&fit=crop&w=600&q=80"
-  alt: "an island"
+  url: ~assets/blog/covers/island.avif
+  alt: an island
+  height: 300
+  width: 500
 pubDate: 2024-05-01
 tags: ["js", "astro", "frameworks"]
 ---
@@ -33,7 +35,7 @@ Here's a diagram of what this might look like, pulled from [Astro's website](htt
   width={500}
 />
 
-In this example, the header and the image carousel are the dynamic parts of the website, and everything else is static. When a user navigates to this site, the browser will load the static content first. Browsers can render those static parts really quickly (it's mostly text!), so this means that the user will (hopefully) be able to start reading the main text content right away. Meanwhile, in the background, the browser will load up the dynamic parts - the header and the image carousel - that will require more time to download and setup.
+In this example, the header and the image carousel are the dynamic parts of the website, and everything else is static. When a user navigates to this site, the browser will load the static content first. Browsers can download and render those static parts really quickly (it's mostly text!), so this means that the user will (hopefully) be able to start reading the main text content right away. Meanwhile, in the background, the browser will load up the dynamic parts - the header and the image carousel - that will require more time to download and setup.
 
 You can also see islands at work on this very website! I've set up a simple Greeting widget on [my homepage](/) that will select a random heading every time you click on it. This is a dynamic, interactive component that needs JavaScript to work (I'm using the [Preact](https://preactjs.com/) framework here). If you open up the DevTools Network tab and reload the page, you'll see that the Greeting component and its Preact dependecies are only being loaded _after_ the main content has come through. Notice the 'Waterfall' column on the right, showing the timeline of when things are loading:
 
