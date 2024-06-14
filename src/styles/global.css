@@ -4,6 +4,7 @@ html {
     Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", Helvetica, sans-serif;
 
   --accent: #176e8e;
+  --accent-light: #2987aa;
   --bright: #ae5709;
   --contrast: #9059e3;
   --body-width: 75ch;
@@ -16,6 +17,7 @@ html.dark {
   color: #fff;
 
   --accent: #9ed1e4;
+  --accent-light: #bee8f8;
   --bright: #e49273;
 }
 
@@ -52,6 +54,10 @@ pre {
 
 a {
   color: var(--accent);
+}
+
+a:hover {
+  color: var(--accent-light);
 }
 
 /* nav styles */
