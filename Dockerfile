@@ -42,9 +42,10 @@ RUN pnpm prune --prod
 
 
 # Final stage for app image
-FROM gcr.io/distroless/nodejs20-debian12:nonroot as run
+FROM node:${NODE_VERSION}-slim as run
 WORKDIR /app
 COPY --from=build /app/package.json ./package.json
+COPY --from=build /app/migrations ./migrations
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/dist .
 ENV NODE_ENV=production

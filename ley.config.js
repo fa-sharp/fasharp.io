@@ -6,5 +6,4 @@ export default {
   user: process.env.PGUSER || "postgres",
   password: process.env.PGPASSWORD || "postgres",
   host: process.env.PGHOST || "localhost",
-  transform: postgres.camel,
 };
