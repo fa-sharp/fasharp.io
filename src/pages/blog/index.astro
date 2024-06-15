@@ -2,8 +2,10 @@
 import { getCollection } from "astro:content";
 import BlogPostPreview from "~components/BlogPostPreview.astro";
 import BaseLayout from "~layouts/BaseLayout.astro";
-const pageTitle = "Blog posts";
 
+export const prerender = true;
+
+const pageTitle = "Blog posts";
 const posts = await getCollection("blog", ({ data }) =>
   import.meta.env.PROD ? data.status === "published" : true
 );

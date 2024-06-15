@@ -7,25 +7,31 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
-  },
-  "dependencies": {
-    "@astrojs/mdx": "^3.1.0",
-    "@astrojs/preact": "^3.4.0",
-    "@astrojs/rss": "^4.0.6",
-    "astro": "^4.10.1",
-    "astro-embed": "^0.7.2",
-    "astro-icon": "1.1.0",
-    "preact": "^10.22.0",
-    "rehype-accessible-emojis": "^0.3.2",
-    "remark-gfm": "^4.0.0",
-    "sharp": "^0.33.4"
+    "astro": "astro",
+    "migrate": "ley"
   },
   "devDependencies": {
+    "@astrojs/mdx": "^3.1.0",
+    "@astrojs/preact": "^3.4.0",
     "@flydotio/dockerfile": "^0.5.7",
     "@iconify-json/fa6-brands": "^1.1.19",
     "@iconify-json/fa6-regular": "^1.1.19",
     "@iconify-json/fa6-solid": "^1.1.21",
+    "@preact/signals": "^1.2.3",
+    "astro": "^4.10.1",
+    "astro-embed": "^0.7.2",
+    "astro-icon": "1.1.0",
+    "lucide-preact": "^0.395.0",
+    "rehype-accessible-emojis": "^0.3.2",
+    "remark-gfm": "^4.0.0",
+    "sharp": "^0.33.4",
     "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "@astrojs/node": "^8.3.0",
+    "@astrojs/rss": "^4.0.6",
+    "ley": "^0.8.1",
+    "postgres": "^3.4.4",
+    "preact": "^10.22.0"
   }
 }

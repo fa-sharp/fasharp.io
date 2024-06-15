@@ -3,6 +3,8 @@ import type { GetStaticPaths } from "astro";
 import { getCollection } from "astro:content";
 import MarkdownPostLayout from "~layouts/MarkdownPostLayout.astro";
 
+export const prerender = true;
+
 export const getStaticPaths = (async () => {
   const blogPosts = await getCollection("blog", ({ data }) =>
     import.meta.env.PROD ? data.status !== "draft" : true

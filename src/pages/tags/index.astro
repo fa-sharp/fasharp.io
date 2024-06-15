@@ -3,8 +3,9 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Tags from "../../components/Tags.astro";
 import { getCollection } from "astro:content";
 
-const pageTitle = "Tag index";
+export const prerender = true;
 
+const pageTitle = "Tag index";
 const posts = await getCollection("blog", ({ data }) =>
   import.meta.env.PROD ? data.status !== "draft" : true
 );
