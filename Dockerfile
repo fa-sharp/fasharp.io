@@ -50,13 +50,4 @@ WORKDIR /assets
 RUN zip -r /redbean.com *
 
 EXPOSE 80
-CMD /redbean.com -vv -p 80
-
-# FROM nginx
-
-# # Copy built application
-# COPY --from=build /app/dist /usr/share/nginx/html
-
-# Start the server by default, this can be overwritten at runtime
-# EXPOSE 80
-# CMD [ "/usr/sbin/nginx", "-g", "daemon off;" ]
+CMD /redbean.com -vv -p 80 -c 86400
