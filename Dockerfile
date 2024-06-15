@@ -2,6 +2,9 @@
 
 # Adjust NODE_VERSION as desired
 ARG NODE_VERSION=20.12.2
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+
 FROM node:${NODE_VERSION}-slim as base
 
 LABEL fly_launch_runtime="Astro"
@@ -25,29 +28,25 @@ RUN apt-get update -qq && \
     apt-get install --no-install-recommends -y build-essential node-gyp pkg-config python-is-python3
 
 # Install node modules
-COPY --link package.json pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile --prod=false
+COPY package.json pnpm-lock.yaml ./
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile --prod=false
 
 # Copy application code
-COPY --link . .
+COPY . .
 
 # Build application
-RUN pnpm run build
+RUN --mount=type=cache,id=astro,target=/app/node_modules/.astro pnpm run build
 
 # Remove development dependencies
 RUN pnpm prune --prod
 
 
 # Final stage for app image
-FROM alpine:latest as static
-RUN apk add --update zip
-RUN wget https://redbean.dev/redbean-original-2.2.com -O redbean.com
-RUN chmod +x redbean.com
-RUN sh ./redbean.com --assimilate
+FROM gcr.io/distroless/nodejs20-debian12:nonroot as run
+WORKDIR /app
+COPY --from=build /app/package.json ./package.json
+COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/dist .
+ENV NODE_ENV=production
 
-COPY --from=build /app/dist /assets
-WORKDIR /assets
-RUN zip -r /redbean.com *
-
-EXPOSE 80
-CMD /redbean.com -vv -p 80 -c 86400
+CMD ["server/entry.mjs"]

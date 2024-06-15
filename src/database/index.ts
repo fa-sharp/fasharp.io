@@ -1,9 +1,9 @@
 import postgres from "postgres";
 
 const sql = postgres({
-  user: import.meta.env.PGUSER || "postgres",
-  password: import.meta.env.PGPASSWORD || "postgres",
-  host: import.meta.env.PGHOST || "localhost",
+  user: import.meta.env.PGUSER,
+  password: import.meta.env.PGPASSWORD,
+  host: import.meta.env.PGHOST,
   transform: postgres.camel,
   debug: import.meta.env.DEV,
 });
