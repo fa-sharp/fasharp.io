@@ -2,10 +2,10 @@
 
 # Adjust NODE_VERSION as desired
 ARG NODE_VERSION=20.12.2
-ENV PNPM_HOME="/pnpm"
-ENV PATH="$PNPM_HOME:$PATH"
 
 FROM node:${NODE_VERSION}-slim as base
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
 
 LABEL fly_launch_runtime="Astro"
 
