@@ -12,6 +12,9 @@ export default defineConfig({
   experimental: {
     actions: true,
   },
+  security: {
+    checkOrigin: true,
+  },
   site: "https://fasharp.io",
   markdown: {
     remarkPlugins: [remarkGFM],

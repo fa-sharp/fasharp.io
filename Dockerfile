@@ -35,7 +35,7 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 COPY . .
 
 # Build application
-RUN --mount=type=cache,id=astro,target=/app/node_modules/.astro pnpm run build
+RUN --mount=type=cache,id=astro,target=/app/node_modules/.astro pnpm run build --logLevel warn
 
 # Remove development dependencies
 RUN pnpm prune --prod
