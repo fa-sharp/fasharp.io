@@ -11,7 +11,7 @@ export const onRequest = defineMiddleware(
     locals.reqId = randomUUID();
     locals.startTime = performance.now();
 
-    const { method, headers } = request;
+    const { method } = request;
     const { pathname, search, origin } = url;
 
     const logData = {
@@ -22,7 +22,6 @@ export const onRequest = defineMiddleware(
         pathname,
         search,
         origin,
-        headers: Object.fromEntries(headers.entries()),
       },
     };
     logger.info(logData);
