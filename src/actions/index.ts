@@ -1,10 +1,10 @@
 import { ActionError, defineAction, z } from "astro:actions";
 import { getEntry } from "astro:content";
 import { RateLimiterMemory } from "rate-limiter-flexible";
-import { addLike, getPostData, removeLike } from "src/database";
+import { addReaction, getPostData, removeReaction } from "src/database";
 
 const rateLimiter = new RateLimiterMemory({
-  points: 100,
+  points: 60,
   duration: 60,
 });
 
@@ -12,6 +12,7 @@ export const server = {
   like: defineAction({
     input: z.object({
       like: z.boolean(),
+      type: z.enum(["likes", "flames", "rockets", "coffee", "notes"]),
       postSlug: z
         .string()
         .refine(
@@ -19,7 +20,7 @@ export const server = {
           "Post not found!"
         ),
     }),
-    async handler({ like, postSlug }, ctx) {
+    async handler({ like, type, postSlug }, ctx) {
       try {
         await rateLimiter.consume(ctx.clientAddress);
       } catch {
@@ -29,9 +30,9 @@ export const server = {
         });
       }
       if (like) {
-        return { likes: await addLike(postSlug) };
+        return { data: await addReaction(postSlug, type) };
       } else {
-        return { likes: await removeLike(postSlug) };
+        return { data: await removeReaction(postSlug, type) };
       }
     },
   }),

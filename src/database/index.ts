@@ -5,14 +5,28 @@ const sql = postgres({
   password: import.meta.env.PGPASSWORD,
   host: import.meta.env.PGHOST,
   transform: postgres.camel,
-  debug: import.meta.env.DEV,
+  debug: import.meta.env.DEV
+    ? (_, query, params) => {
+        console.log("SQL", { query, params });
+      }
+    : undefined,
 });
 
 interface PostData {
   id: number;
   postSlug: string;
   likes: number;
+  flames: number;
+  rockets: number;
+  coffee: number;
+  notes: number;
 }
+
+export type PostReactionData = Pick<
+  PostData,
+  "likes" | "flames" | "rockets" | "coffee" | "notes"
+>;
+export type PostReactionType = keyof PostReactionData;
 
 export async function getPostData(postSlug: string) {
   const [post] = await sql<
@@ -22,28 +36,29 @@ export async function getPostData(postSlug: string) {
   return post || null;
 }
 
-export async function addLike(postSlug: string) {
+export async function addReaction(postSlug: string, type: PostReactionType) {
   const postData = await getPostData(postSlug);
 
   if (!postData) {
-    const [{ likes }] = await sql<[PostData]>`INSERT INTO posts ${sql([
-      { postSlug, likes: 1 },
-    ])}
-    RETURNING likes`;
-    return likes;
+    const [newReactions] = await sql<[PostReactionData]>`
+      INSERT INTO posts ${sql([{ postSlug, [type]: 1 }])}
+      RETURNING likes, flames, rockets, coffee, notes`;
+    return newReactions;
   } else {
-    const [{ likes }] = await sql<[PostData]>`UPDATE posts
-    SET likes = likes + 1
-    WHERE ${sql("postSlug")} = ${postSlug}
-    RETURNING likes`;
-    return likes;
+    const [newReactions] = await sql<[PostReactionData]>`
+      UPDATE posts
+      SET ${sql(type)} = ${sql(type)} + 1
+      WHERE ${sql("postSlug")} = ${postSlug}
+      RETURNING likes, flames, rockets, coffee, notes`;
+    return newReactions;
   }
 }
 
-export async function removeLike(postSlug: string) {
-  const [post] = await sql<Array<PostData | undefined>>`UPDATE posts
-      SET likes = likes - 1
-      WHERE ${sql("postSlug")} = ${postSlug}
-      RETURNING likes`;
-  return post?.likes || 0;
+export async function removeReaction(postSlug: string, type: PostReactionType) {
+  const [post] = await sql<[PostReactionData | undefined]>`
+    UPDATE posts
+    SET ${sql(type)} = ${sql(type)} - 1
+    WHERE ${sql("postSlug")} = ${postSlug}
+    RETURNING likes, flames, rockets, coffee, notes`;
+  return post || null;
 }
