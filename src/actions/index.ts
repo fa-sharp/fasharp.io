@@ -2,6 +2,7 @@ import { ActionError, defineAction, z } from "astro:actions";
 import { getEntry } from "astro:content";
 import { RateLimiterMemory } from "rate-limiter-flexible";
 import { addReaction, getPostData, removeReaction } from "src/database";
+import { logger } from "src/middleware";
 
 const rateLimiter = new RateLimiterMemory({
   points: 60,
@@ -21,6 +22,11 @@ export const server = {
         ),
     }),
     async handler({ like, type, postSlug }, ctx) {
+      logger.info({
+        message: "Processing reaction",
+        reqId: ctx.locals.reqId,
+        clientAddress: ctx.clientAddress,
+      });
       try {
         await rateLimiter.consume(ctx.clientAddress);
       } catch {

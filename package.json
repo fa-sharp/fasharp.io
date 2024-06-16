@@ -31,6 +31,7 @@
     "@astrojs/rss": "^4.0.6",
     "astro": "^4.10.1",
     "ley": "^0.8.1",
+    "pino": "^9.2.0",
     "postgres": "^3.4.4",
     "preact": "^10.22.0",
     "rate-limiter-flexible": "^5.0.3"

@@ -1,14 +1,5 @@
 import { useSignalEffect, useSignal } from "@preact/signals";
-import {
-  Heart,
-  Flame,
-  Rocket,
-  Coffee,
-  Music,
-  Piano,
-  Music2,
-  Music3,
-} from "lucide-preact";
+import { Heart, Flame, Rocket, Coffee, Music3 } from "lucide-preact";
 import { useCallback } from "preact/hooks";
 import { actions } from "astro:actions";
 import type { PostReactionData, PostReactionType } from "src/database";
