@@ -1,0 +1,34 @@
+---
+title: The bit field piano
+slug: bit-piano
+status: draft
+description: "Creating an interactive piano based on a bit field"
+image:
+  url: ~assets/blog/covers/piano.avif
+  alt: a piano
+  height: 281
+  width: 500
+pubDate: 2024-06-20
+tags: ["js", "a11y"]
+---
+
+import { Icon } from "astro-icon/components";
+import { Code } from "astro:components";
+import BitPiano from "~components/demos/bit-piano/BitPiano.svelte";
+import BitPianoCode from "~components/demos/bit-piano/BitPiano.svelte?raw";
+
+So I've been learning a _bit_ about [bitmasking](<https://en.wikipedia.org/wiki/Mask_(computing)>)
+
+The first rule of icon buttons is... don't use icon buttons 😜. If at all possible. They can present an unnecessary learning curve for new users, and (depending on how they're implemented) they could be downright disastrous for accessibility. That being said, sometimes we _do_ need to use them, either because of space restrictions or something else. Let's talk about how to make them friendly and accessible for our users!
+
+## The final product
+
+Here it is! You can click on the piano keys, and you can also click on the individual bits in the table to toggle them on and off. Notice how the values below change as you interact with the piano.
+
+<BitPiano client:visible />
+
+### Code
+
+I'm using the [Svelte](https://svelte.dev) framework here, as it allows for some easy state management and reactivity. I've left out the CSS below since that's not the interesting part, but you can check out the whole code on GitHub.
+
+<Code code={BitPianoCode.slice(0, BitPianoCode.indexOf("\n<style"))} lang="svelte" />

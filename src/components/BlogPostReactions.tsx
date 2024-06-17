@@ -5,6 +5,8 @@ import { actions } from "astro:actions";
 import type { PostReactionData, PostReactionType } from "src/database";
 import type { ReactNode } from "preact/compat";
 
+import styles from "./BlogPostReactions.module.css";
+
 export default function BlogPostReactions({ postSlug }: { postSlug: string }) {
   const userReactions = useSignal<Record<PostReactionType, boolean>>({
     flames: false,
@@ -174,21 +176,9 @@ const Reaction = ({
     onClick={onClick}
     title={title}
     aria-label={ariaLabel}
-    style={iconButtonStyles}
+    className={styles.iconButton}
   >
     {icon}
     {numReactions}
   </button>
 );
-
-const iconButtonStyles = {
-  display: "inline-flex",
-  alignItems: "center",
-  gap: 4,
-  cursor: "pointer",
-  background: "none",
-  border: "none",
-  padding: 0,
-  color: "inherit",
-  minWidth: "2.4rem",
-};

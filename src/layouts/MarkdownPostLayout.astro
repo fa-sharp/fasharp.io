@@ -49,12 +49,14 @@ const postUrl = `https://fasharp.io/blog/${post.slug}`;
   </div>
   {
     post.data.image && (
-      <Image
-        src={post.data.image.url}
-        alt={post.data.image.alt}
-        width={post.data.image.width || post.data.image.url.width}
-        height={post.data.image.height || post.data.image.url.height}
-      />
+      <div class="image-wrapper">
+        <Image
+          src={post.data.image.url}
+          alt={post.data.image.alt}
+          width={post.data.image.width || post.data.image.url.width}
+          height={post.data.image.height || post.data.image.url.height}
+        />
+      </div>
     )
   }
   <article>
@@ -77,5 +79,8 @@ const postUrl = `https://fasharp.io/blog/${post.slug}`;
   }
   .social {
     margin-block: 1rem;
+  }
+  .image-wrapper {
+    overflow: auto;
   }
 </style>

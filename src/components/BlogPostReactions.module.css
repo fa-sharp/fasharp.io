@@ -1,0 +1,13 @@
+.iconButton {
+  display: inline-flex;
+  gap: 4px;
+  align-items: center;
+  cursor: pointer;
+
+  background: none;
+  border: none;
+  padding: 0;
+
+  min-width: 2.4rem;
+  color: inherit;
+}
