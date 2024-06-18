@@ -9,21 +9,90 @@ image:
   height: 281
   width: 500
 pubDate: 2024-06-20
-tags: ["js", "a11y"]
+tags: ["js", "music", "learning"]
 ---
 
 import { Icon } from "astro-icon/components";
 import { Code } from "astro:components";
+import BlogPostImage from "~components/BlogPostImage.astro";
+import pianoImage from "~assets/blog/diagrams/piano.png";
+import BinaryToBase10 from "~components/demos/bit-piano/BinaryToBase10.svelte";
 import BitPiano from "~components/demos/bit-piano/BitPiano.svelte";
 import BitPianoCode from "~components/demos/bit-piano/BitPiano.svelte?raw";
 
-So I've been learning a _bit_ about [bitmasking](<https://en.wikipedia.org/wiki/Mask_(computing)>)
+So I've been learning a _bit_ about [bitmasks](<https://en.wikipedia.org/wiki/Mask_(computing)>), and wanted to try applying it to a musical concept. Let's see how it goes!
 
-The first rule of icon buttons is... don't use icon buttons 😜. If at all possible. They can present an unnecessary learning curve for new users, and (depending on how they're implemented) they could be downright disastrous for accessibility. That being said, sometimes we _do_ need to use them, either because of space restrictions or something else. Let's talk about how to make them friendly and accessible for our users!
+I've built a couple [interactive pianos](/projects) on the web, and one of the first questions/challenges with building something like that is how to store the **current state** of the piano - i.e., how do we know which keys are being played right now? We need to find a way to store this information in an organized, accessible way in our application, so that we can easily react when the user interacts with the piano.
 
-## The final product
+## Storing the piano state as an array
 
-Here it is! You can click on the piano keys, and you can also click on the individual bits in the table to toggle them on and off. Notice how the values below change as you interact with the piano.
+Let's consider just one octave of a piano for now, to keep things simple. On a piano, one octave is comprised of 12 keys, representing the 12 notes of a scale in Western music (we see 13 keys here because we also have the C in the _next_ octave):
+
+<BlogPostImage src={pianoImage} alt="one octave on a piano" width={400} />
+
+In my past projects, I've stored the state of the keys as an [array](<https://en.wikipedia.org/wiki/Array_(data_structure)>) of booleans. Each piano key is assigned an **index** in the array: 0 is C, 1 is C#/Db, 2 is D, and so on. Then, each **value** represents whether the key is currently being played - either `true` or `false`. For example, if the notes C and D are currently being played at the same time, the state would look like this:
+
+```js
+/** State array - C and D are being played */
+const state = [true, false, true, false, false, ...];
+```
+
+Storing the state as an array allows for easy access to the state of each piano key. For each key, we can just check the corresponding index on the array to see if the key is being played, and then react accordingly in our application (change the key's color, play sound, etc.)
+
+But, there are some limitations and performance implications here. An array takes up space in memory for every element, and for a full-size piano, we'd need to store the state of 88 keys. On top of that, in most JavaScript frameworks, if you're storing state as an array, that array needs to be re-created in memory _each_ time the state changes. So, every time you play or release a key, we need to re-create the whole array, which seems a _bit_ wasteful. Is there a more compact, efficient way we could represent the state of the piano keys?
+
+## Bit fields, masks, and operations
+
+### Binary numbers
+
+At the lowest level of computers, data is stored and manipulated as _bits_, just 0s and 1s. Integers can be stored in their binary (base 2) representation. For example, the number 5 in base 10 (which is what humans use) becomes 101 in binary: 1 \* 2<sup>2</sup> + 0 \* 2<sup>1</sup> + 1 \* 2<sup>0</sup>.
+
+Here's an interactive representation of an **unsigned 8-bit integer** in a computer's memory, where you can click and toggle the bits between 0 and 1, and see how that translates to our human base 10 number:
+
+<BinaryToBase10 client:visible />
+
+(Technically in a language like JavaScript, there's something [way more fancy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number#number_encoding) going on in memory, since numbers can be decimals, not just integers, and they can go up to 2<sup>1024</sup>. But we'll keep things simple here 😅)
+
+### Bit fields and masks
+
+A series of bits doesn't have to just represent a number, though. We could take a bunch of bits (sometimes called a bit field, or bit set) and then give each individual bit a _special meaning_ - say, a note in a musical scale! So, let's expand out to 13 bits to represent one octave of piano keys, and then assign each note to a specific bit:
+
+```
+| Note  |  Base 2 (bitmask) | Base 10 |
+| ----- |  ---------------- | ------- |
+| C     |   1000000000000   |  4096   |
+| C#/Db |   0100000000000   |  2048   |
+| D     |   0010000000000   |  1024   |
+| D#/Eb |   0001000000000   |  512    |
+| E     |   0000100000000   |  256    |
+| F     |   0000010000000   |  128    |
+| F#/Gb |   0000001000000   |  64     |
+| G     |   0000000100000   |  32     |
+| G#/Ab |   0000000010000   |  16     |
+| A     |   0000000001000   |  8      |
+| A#/Bb |   0000000000100   |  4      |
+| B     |   0000000000010   |  2      |
+```
+
+Notice that each note is associated with a specific bit (the position of the 1), and that translates to a unique numeric value (which is a power of 2, since we're in base 2!). This unique value associated with each note is called a _bitmask_. Typically in applications, bitmasks are used as an efficient way to represent various settings or flags.
+
+Now that each note has a bitmask, we can use those to toggle notes on and off in a bit field. But how do we do that exactly? We'll need to learn some bit math, also known as _bitwise operations_. (are you ready??)
+
+### Bit operations
+
+## Downsides
+
+Now, is a bit field the most _sensible_ way to hold the state of the piano in an actual app? Probably not, and here are a few reasons why:
+
+- It makes debugging quite tricky. Imagine if there's a bug somewhere - now you have to dive into all the bit math just to figure out what's going on.
+- Is it _actually_ a lot more performant than re-creating an array of booleans each time the state of the piano changes? On the surface, it seems like it _should_ be, since we're dealing with updating integers rather than whole arrays. But under the hood, the JavaScript engine (or whatever language you're using) might be making tons of optimizations with an array of booleans, which would make those performance gains more modest than we might think.
+- It's not easily extensible. If you wanted to store additional information, like the volume/velocity of each key played, you'd need an additional piece of state. In that case, you might as well go with an array or hashmap, where we can add data as needed. Or if we wanted to be really fancy, we could use something like a byte array (in JavaScript, an [ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer)) to store that information more compactly (but again, that raises debuggability issues).
+
+All that being said, is this a cool way to learn about and visualize bitwise operations, and even learn some music theory in the process? I would say **yes!**
+
+## Interactive Demo
+
+Alright, enough talk. Here's a demo of a one-octave piano, represented by a bit field! There's no sound here - this is purely for visualization purposes to see how the state changes as we interact with the keys. You can click on the piano keys, and you can also click on the individual bits in the table to toggle them on and off. Notice how each combination of keys has a unique state value associated with it, and how we can identify patterns and intervals from the bits.
 
 <BitPiano client:visible />
 

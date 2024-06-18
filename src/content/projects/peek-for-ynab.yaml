@@ -6,6 +6,5 @@ tools:
   - Plasmo
   - React
   - TypeScript
-description:
-  A third-party Chrome extension for YNAB, that uses their API to display
+description: A Chrome extension that uses YNAB's public API to display
   your category balances and quickly record transactions.

@@ -51,6 +51,7 @@ const postUrl = `https://fasharp.io/blog/${post.slug}`;
     post.data.image && (
       <div class="image-wrapper">
         <Image
+          loading="eager"
           src={post.data.image.url}
           alt={post.data.image.alt}
           width={post.data.image.width || post.data.image.url.width}

@@ -1,7 +1,7 @@
 <script lang="ts">
   /**
-   * Generated metadata for 12 piano keys (one octave). Each piano key is given a unique
-   * bitmask value that's a power of 2, starting with 4096 (2 ^ 12) and descending.
+   * Constant array of metadata for 12 piano keys (one octave). Each piano key is given a
+   * unique bitmask value that's a power of 2, starting with 4096 (2 ^ 12) and descending.
    *
    * For example: `[ { name: "C", value: 4096 }, { name: "C# Db", value: 2048 }, ... ]`
    */

@@ -1,5 +1,5 @@
 ---
-title: Let's talk about icon buttons
+title: Icon buttons
 slug: icon-buttons-a11y
 status: published
 description: "Exploring icon buttons and their accessibility concerns"
@@ -35,10 +35,11 @@ button.icon-button {
   border: none;
   padding: 0px;
   margin: 0px;
+  font: inherit;
 }
 ```
 
-This will clear out the default background, border, and padding of the `<button>` element, and add a helpful visual cue with the pointer cursor. You could always adjust the `padding` and `border` properties as needed, depending on how you want the icon button to look. And `display: inline-flex` makes it a bit easier to adjust the height and width of the button, and it also creates a [flexbox](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox) within the button that can help with positioning things.
+This will clear out the default look of the `<button>` element, and add a helpful visual cue with the pointer cursor. And `display: inline-flex` makes it a bit easier to adjust the height and width of the button, and it also creates a [flexbox](https://developer.mozilla.org/en-US/docs/Learn/CSS/CSS_layout/Flexbox) within the button that can help with positioning things. Of course, you could always adjust these properties as needed, depending on how you want the icon button to look.
 
 We could also use the newer `all` CSS property to clear out all the default `<button>` styles, but again, you'd want to make sure to test this thoroughly in different browsers:
 
@@ -64,16 +65,8 @@ If these were buttons in an app that you were using for the first time, what wou
 
 Now look at these:
 
-<Icon
-  aria-label="calendar plus icon"
-  name="fa6-solid:calendar-plus"
-  size={24}
-/>
-<Icon
-  aria-label="calendar minus icon"
-  name="fa6-solid:calendar-minus"
-  size={24}
-/>
+<Icon aria-label="calendar plus icon" name="fa6-solid:calendar-plus" size={24} />
+<Icon aria-label="calendar minus icon" name="fa6-solid:calendar-minus" size={24} />
 
 Even with no context, there's something noticeably different about this second group of icons. We still seem to be able to add and remove things, but perhaps it's related to dates or calendars somehow.
 
