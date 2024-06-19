@@ -34,10 +34,10 @@
   cursor: pointer;
 }
 .fancy-button:hover {
-  background-color: hsl(196, 50%, 90%);
+  background-color: hsl(196, 50%, 85%);
 }
-.fancy-button:focus:active {
-  background-color: hsl(196, 50%, 80%);
+.fancy-button:active {
+  background-color: hsl(196, 50%, 70%);
 }
 .fancy-button:focus-visible {
   outline: solid 2px hsl(14, 90%, 60%);

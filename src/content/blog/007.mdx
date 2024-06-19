@@ -20,9 +20,9 @@ import BinaryToBase10 from "~components/demos/bit-piano/BinaryToBase10.svelte";
 import BitPiano from "~components/demos/bit-piano/BitPiano.svelte";
 import BitPianoCode from "~components/demos/bit-piano/BitPiano.svelte?raw";
 
-So I've been learning a _bit_ about [bitmasks](<https://en.wikipedia.org/wiki/Mask_(computing)>), and wanted to try applying it to a musical concept. Let's see how it goes!
+I've been learning a _bit_ about bit operations and [bitmasks](<https://en.wikipedia.org/wiki/Mask_(computing)>), and wanted to try applying them to a musical concept. Let's see how it goes!
 
-I've built a couple [interactive pianos](/projects) on the web, and one of the first questions/challenges with building something like that is how to store the **current state** of the piano - i.e., how do we know which keys are being played right now? We need to find a way to store this information in an organized, accessible way in our application, so that we can easily react when the user interacts with the piano.
+I've built a couple [interactive pianos](/projects) on the web, and one of the first questions/challenges with building something like that is how to store the **current state** of the piano - i.e., how do we know which keys are being played right now? We need to store this information in an organized, accessible way in our application, so that we can easily react when the user interacts with the piano.
 
 ## Storing the piano state as an array
 
@@ -39,19 +39,19 @@ const state = [true, false, true, false, false, ...];
 
 Storing the state as an array allows for easy access to the state of each piano key. For each key, we can just check the corresponding index on the array to see if the key is being played, and then react accordingly in our application (change the key's color, play sound, etc.)
 
-But, there are some limitations and performance implications here. An array takes up space in memory for every element, and for a full-size piano, we'd need to store the state of 88 keys. On top of that, in most JavaScript frameworks, if you're storing state as an array, that array needs to be re-created in memory _each_ time the state changes. So, every time you play or release a key, we need to re-create the whole array, which seems a _bit_ wasteful. Is there a more compact, efficient way we could represent the state of the piano keys?
+But, there are some limitations and performance implications here. An array takes up space in memory for every element, and for a full-size piano, we'd need to store the state of 88 keys. On top of that, in most JavaScript frameworks, if you're storing state as an array, that array needs to be re-created in memory _each_ time the state changes. So, every time you play or release a key, we need to re-create the whole array, which seems a _bit_ wasteful. Is there a more compact, efficient way we could represent the state of the piano keys, that mirrors how computers operate at a low level?
 
 ## Bit fields, masks, and operations
 
 ### Binary numbers
 
-At the lowest level of computers, data is stored and manipulated as _bits_, just 0s and 1s. Integers can be stored in their binary (base 2) representation. For example, the number 5 in base 10 (which is what humans use) becomes 101 in binary: 1 \* 2<sup>2</sup> + 0 \* 2<sup>1</sup> + 1 \* 2<sup>0</sup>.
+At the very low level of computers, data is stored and manipulated as _bits_, just 0s and 1s. Integers can be stored in their binary (base 2) representation. For example, the number 5 in base 10 (which is what humans use) becomes 101 in binary: 1 \* 2<sup>2</sup> + 0 \* 2<sup>1</sup> + 1 \* 2<sup>0</sup>.
 
-Here's an interactive representation of an **unsigned 8-bit integer** in a computer's memory, where you can click and toggle the bits between 0 and 1, and see how that translates to our human base 10 number:
+Here's an interactive representation of an **unsigned 8-bit integer** in a computer's memory. You can click to toggle the bits between 0 and 1 in the table, and see how that translates to our human base 10 number:
 
 <BinaryToBase10 client:visible />
 
-(Technically in a language like JavaScript, there's something [way more fancy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number#number_encoding) going on in memory, since numbers can be decimals, not just integers, and they can go up to 2<sup>1024</sup>. But we'll keep things simple here 😅)
+(Technically in a language like JavaScript, there's something [way more fancy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number#number_encoding) going on under the hood, since numbers in JS can be decimals, not just integers, and they can go up to 2<sup>1024</sup>. But we'll keep things simple here 😅)
 
 ### Bit fields and masks
 
@@ -74,18 +74,111 @@ A series of bits doesn't have to just represent a number, though. We could take 
 | B     |   0000000000010   |  2      |
 ```
 
-Notice that each note is associated with a specific bit (the position of the 1), and that translates to a unique numeric value (which is a power of 2, since we're in base 2!). This unique value associated with each note is called a _bitmask_. Typically in applications, bitmasks are used as an efficient way to represent various settings or flags.
+Notice that each note is associated with a specific bit (the position of the 1) in the bit field, and that in turn translates into a unique numeric value. This unique value associated with each note is called a _bitmask_. Typically in applications, bitmasks are used as an efficient way to represent various settings or flags.
 
-Now that each note has a bitmask, we can use those to toggle notes on and off in a bit field. But how do we do that exactly? We'll need to learn some bit math, also known as _bitwise operations_. (are you ready??)
+Now that each note has a bitmask, we can use this to toggle notes on and off in a bit field. But how do we do that exactly? Well, we'll need to learn some bit math, also known as _bitwise operations_. (are you ready??)
 
 ### Bit operations
 
+We'll start with the **initial state** of the piano - no keys are being played, which will be represented by 13 zeros (13 'off' values):
+
+```
+initial state: 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0
+        notes: C | C#| D | D#| E | F | F#| G | G#| A | A#| B | C
+```
+
+#### Bitwise OR (|)
+
+Now, let's say the user plays a D. We want to flip the third bit from a zero (off) to a one (on). To do this, we'll grab the bitmask of D from the table above, and then apply it to the initial state using the OR (|) operator:
+
+```
+initial state: 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0
+                           OR (|)
+ bitmask of D: 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0
+                           EQUALS (=)
+    new state: 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0
+       (notes: C | C#| D | D#| E | F | F#| G | G#| A | A#| B | C)
+```
+
+What does this OR operator do exactly? It takes two binary values, and if a 1 is found in any position, the resulting value will have a 1 in that position. So, when we have a bitmask, the OR operator forces the corresponding bit(s) to be a 1 in the resulting value.
+
+Now let's say the user plays A, without letting go of D. We'll take the bitmask of A and apply it to the last state, again using the OR operator:
+
+```
+   last state: 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0
+                            OR (|)
+ bitmask of A: 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0
+                            EQUALS (=)
+    new state: 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0
+       (notes: C | C#| D | D#| E | F | F#| G | G#| A | A#| B | C)
+```
+
+Now, both D and A are set to the 1 / 'on' state. Notice that this OR operation doesn't affect any other bits in the state - it only acts on the bit that we want.
+
+#### Bitwise AND (&)
+
+How does our application check whether a certain note is currently being played? We'll need another operator - the AND operator. The AND operator (&) takes two binary values, and if a 1 is found in the same position in _both_ values, it will return a 1 in the same position in the resulting value. Otherwise, it returns a 0.
+
+Let's say the user is still holding down the D and A, and now our application needs to check whether D is still being played:
+
+```
+   last state: 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0
+                                AND (&)
+ bitmask of D: 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0
+                                EQUALS (=)
+       result: 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0
+       (notes: C | C#| D | D#| E | F | F#| G | G#| A | A#| B | C)
+```
+
+So, we take our current state, along with the bitmask of the note we're wondering about, and do an AND operation. If the resulting value has a 1, we know this note is currently being played. Simple! (have I lost you yet?)
+
+#### Bitwise NOT (~)
+
+Ok, we have a way to toggle notes 'on', and we have a way to check if any note is being played. But we still need a way to toggle notes 'off'! We'll need to do something a _bit_ more involved here.
+
+Our user is still holding the D and A keys. Now, they let go of A. First, we do a NOT operation on the bitmask of A:
+
+```
+                           NOT (~)
+ bitmask of A: 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0
+                           EQUALS (=)
+       result: 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 0 | 1 | 1 | 1
+       (notes: C | C#| D | D#| E | F | F#| G | G#| A | A#| B | C)
+```
+
+The NOT operator (~), unlike the others we've seen, only operates on a single value. It will just flip every bit: 0s become 1s, and 1s become 0s.
+
+We'll take this 'flipped' bitmask of the A key, and then do an AND operation with the current state of the piano. Watch what happens:
+
+```
+last state of piano: 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0
+                                 AND (&)
+   NOT bitmask of A: 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 0 | 1 | 1 | 1
+                                 EQUALS (=)
+             result: 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0
+             (notes: C | C#| D | D#| E | F | F#| G | G#| A | A#| B | C)
+```
+
+Remember that the AND operation will return a 1 only if _both_ values have a 1 in the same position. By combining the AND and NOT operators, we force the A key into the zero / 'off' position, without affecting any other keys.
+
+(If you're feeling lost at this point, don't worry - this is also where I got lost the last time I tried to learn this stuff. Come back in a few days and read this again and you'll get it, I promise 😄)
+
+#### Bit shifts (\<\< and \>\>)
+
+#### Summary of bitwise operations
+
+- The OR operator lets us toggle notes _on_.
+- The AND operator lets us check which notes are being played.
+- Combining the AND and NOT operators let us toggle notes _off_.
+
+Because these bitwise operations are so close to how a computer operates at a low level, all of these operations happen extremely quickly in computers. Like, ridiculously fast. Like, there's no more optimizations to be had at this point.
+
 ## Downsides
 
-Now, is a bit field the most _sensible_ way to hold the state of the piano in an actual app? Probably not, and here are a few reasons why:
+Now, is a bit field the most _sensible_ way to hold the state of the piano in an actual application? Honestly, probably not, and here are a few reasons why:
 
-- It makes debugging quite tricky. Imagine if there's a bug somewhere - now you have to dive into all the bit math just to figure out what's going on.
-- Is it _actually_ a lot more performant than re-creating an array of booleans each time the state of the piano changes? On the surface, it seems like it _should_ be, since we're dealing with updating integers rather than whole arrays. But under the hood, the JavaScript engine (or whatever language you're using) might be making tons of optimizations with an array of booleans, which would make those performance gains more modest than we might think.
+- It makes debugging quite tricky. Imagine if there's a bug somewhere in the app - now you have to dive into all the bit math just to figure out what's going on.
+- Is it _actually_ a lot more performant than re-creating an array of booleans each time the state of the piano changes? On the surface, it seems like it _should_ be, since we're dealing with updating integers rather than whole arrays. But under the hood, the JavaScript engine (or whatever language you're using) might already be making tons of optimizations with an array of booleans, which would make those performance gains more modest than we might hope.
 - It's not easily extensible. If you wanted to store additional information, like the volume/velocity of each key played, you'd need an additional piece of state. In that case, you might as well go with an array or hashmap, where we can add data as needed. Or if we wanted to be really fancy, we could use something like a byte array (in JavaScript, an [ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer)) to store that information more compactly (but again, that raises debuggability issues).
 
 All that being said, is this a cool way to learn about and visualize bitwise operations, and even learn some music theory in the process? I would say **yes!**
@@ -101,3 +194,8 @@ Alright, enough talk. Here's a demo of a one-octave piano, represented by a bit 
 I'm using the [Svelte](https://svelte.dev) framework here, as it allows for some easy state management and reactivity. I've left out the CSS below since that's not the interesting part, but you can check out the whole code on GitHub.
 
 <Code code={BitPianoCode.slice(0, BitPianoCode.indexOf("\n<style"))} lang="svelte" />
+
+## Further Reading
+
+- [Wikipedia](https://en.wikipedia.org/wiki/Bitwise_operation)
+- Svelte - great framework to start with

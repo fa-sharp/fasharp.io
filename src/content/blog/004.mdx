@@ -12,11 +12,7 @@ pubDate: 2024-05-10
 tags: ["keyboard", "a11y", "learning"]
 ---
 
-import {
-  DivButtons,
-  PlainButtons,
-  FancyButtons,
-} from "~components/demos/a11y/Buttons";
+import { DivButtons, PlainButtons, FancyButtons } from "~components/demos/a11y/Buttons";
 
 As someone who's experienced chronic hand and arm pain, I prefer to use the keyboard as much as possible, to reduce the strain of constantly moving between the keyboard and mouse. There are also some folks who rely _completely_ on the keyboard (or another device apart from the mouse) as their primary navigation tool on the web. Let's talk a little about how we can ensure our buttons are accessible to these users.
 
@@ -76,14 +72,14 @@ First, let's clear out the background and add a nice border. I'll also change th
 
 (I'm using the [hsl color syntax](https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hsl) here for clarity.)
 
-Now, remember how the items (once we properly labeled them as buttons) changed subtly while clicking them? When a button is being clicked on, either through mouse or keyboard, it triggers both the `:focus` and `:active` states, which we can target in our CSS. We can also add a light hover effect using the `:hover` state. In keeping with the browser's original behavior, these should ideally be _subtle_ color changes:
+Now, remember how the items (once we properly labeled them as buttons) changed subtly while clicking them? When a button is being clicked on, either through mouse or keyboard, it triggers the `:active` state, which we can target in our CSS. We can also add a light hover effect using the `:hover` state. In keeping with the browser's original behavior, these should ideally be _subtle_ color changes:
 
 ```css
 .fancy-button:hover {
-  background-color: hsl(196, 50%, 90%);
+  background-color: hsl(196, 50%, 85%);
 }
-.fancy-button:focus:active {
-  background-color: hsl(196, 50%, 80%);
+.fancy-button:active {
+  background-color: hsl(196, 50%, 70%);
 }
 ```
 
