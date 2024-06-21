@@ -73,7 +73,7 @@
     {/each}
     <b>Bit</b>
     {#each [...stateBinary] as bit, idx}
-      <button class:selected={state & KEYS[idx].value} onclick={() => onKeyToggle(idx)}>
+      <button class:selected={+bit === 1} onclick={() => onKeyToggle(idx)}>
         {bit}
       </button>
     {/each}

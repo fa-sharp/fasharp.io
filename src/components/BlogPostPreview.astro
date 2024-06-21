@@ -34,13 +34,7 @@ const formattedDate = dateFormatter.format(date);
     <div class="preview-description">{description}</div>
     {
       image && (
-        <Image
-          class="preview-image"
-          src={image.url}
-          alt={image.alt}
-          width={700}
-          height={200}
-        />
+        <Image class="preview-image" src={image.url} alt={image.alt} width={700} height={200} />
       )
     }
   </li>
@@ -52,8 +46,10 @@ const formattedDate = dateFormatter.format(date);
     }
     a:hover {
       text-decoration: underline;
+      color: black;
     }
-    :global(.dark) a {
+    :global(.dark) a,
+    :global(.dark) a:hover {
       color: white;
     }
     .preview {

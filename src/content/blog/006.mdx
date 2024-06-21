@@ -76,8 +76,8 @@ This seems like a small detail, but it could be _the_ difference for your visual
 
 Since an icon button won't have any clear, visual text label next to it, we need to make extra sure to add some _other_ labels in our HTML, including (but not limited to) the `title` and `aria-label` attributes:
 
-- The `title` attribute adds a visual tooltip to the button, which appears when the user hovers over the button with their cursor. So with the `title` attribute, we can generally assume that the user knows the _visual context_ of the button. (i.e. whether the button is part of a toolbar, or if it's next to a specific item, etc..)
-- With the `aria-label` property, we'll want to be more descriptive and include some context if possible. Screen readers and other assistive devices will default to reading the `aria-label` property when there is one.
+- The `title` attribute adds a visual tooltip to the button, which appears when the user hovers over the button with their cursor.
+- In the `aria-label` property, we'll want to add a short description of what the button does. Screen readers will default to reading the `aria-label` property when there is one.
 
 ```html
 <button class="icon-button" title="Save" aria-label="Save the current task">
@@ -85,7 +85,7 @@ Since an icon button won't have any clear, visual text label next to it, we need
 </button>
 ```
 
-Notice we didn't put the word "button" in our labels. Because we're correctly using the `<button>` HTML element, a screen reader or other assistive software will already let the user know that this is a button, so there's no need to duplicate that info in the label!
+Notice we didn't put the word "button" in our labels. Because we're correctly using the `<button>` HTML element, a screen reader will already let the user know that this is a button, so there's no need to duplicate that info in the label!
 
 ## Conclusion
 

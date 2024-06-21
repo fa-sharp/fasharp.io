@@ -29,11 +29,7 @@ In any website, we can have **static** and **dynamic** content on the page. Stat
 
 Here's a diagram of what this might look like, pulled from [Astro's website](https://docs.astro.build/en/concepts/islands/):
 
-<BlogPostImage
-  src={islandsImage}
-  alt="diagram of islands architecture"
-  width={500}
-/>
+<BlogPostImage src={islandsImage} alt="diagram of islands architecture" width={500} />
 
 In this example, the header and the image carousel are the dynamic parts of the website, and everything else is static. When a user navigates to this site, the browser will load the static content first. Browsers can download and render those static parts really quickly (it's mostly text!), so this means that the user will (hopefully) be able to start reading the main text content right away. Meanwhile, in the background, the browser will load up the dynamic parts - the header and the image carousel - that will require more time to download and setup.
 
@@ -57,6 +53,6 @@ In a lot of modern frameworks, these kinds of things are put in as an afterthoug
 
 Alright, let's dial down the hype and talk about when islands might _not_ be the best architecture. We talked about how we're prioritizing static content and isolating the dynamic content to get faster loading times. But what if our site is _mostly_ interactive, dynamic content? I'm thinking a task manager with time tracking, a finance app with real-time tables and charts, or a music notation editor. In these cases, things will be constantly changing on the page, and it's vital that components stay in sync with each other across the whole app. Islands are probably _not_ the best approach here, and they'll only get in the way of shipping a good product.
 
-So what _are_ the use cases? There are the obvious ones: blogs, marketing sites, and e-commerce. But there have been a plethora of tools to build those already... so let's think a little outside the box here. How about an educational site with tons of little games and visual feedback built-in, and yet the site is still lightweight enough to be loaded by someone in a region which just got internet for the first time? How about a news website/blog where articles can come with highly interactive widgets and charts - but, since the static content is easily accessible, your AI assistant can still read it to you in the morning? How about a weather site that doesn't take 2 years to load? (I'm looking at you, Accuweather!)
+So what _are_ the use cases? There are the obvious ones: blogs, marketing sites, and e-commerce. But there have been a plethora of tools to build those already... so let's think a little outside the box here. How about an educational site with tons of little games and visual feedback built-in, and yet the site is still lightweight enough to be loaded by someone in a region with less-than-ideal internet speeds? How about a news website/blog where articles can come with highly interactive widgets and charts - but, since the static content is easily accessible, your AI assistant can still read it to you in the morning? How about a weather site that doesn't take 2 years to load? (I'm looking at you, Accuweather!)
 
 While these things have been possible to build for a while, frameworks built around 'islands' make it easier than ever to make a reality. Exciting stuff!
