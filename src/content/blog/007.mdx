@@ -80,7 +80,7 @@ Now that each note has a bitmask, we can use this to toggle notes on and off in 
 
 ### Bit operations
 
-We'll start with the **initial state** of the piano - no keys are being played, which will be represented by 13 zeros (or you can think of 13 light switches in a row, all turned 'off'):
+We'll start with the **initial state** of the piano - no keys are being played, which will be represented by 13 zeros (you can think of 13 light switches in a row, all turned 'off'):
 
 ```
 initial state: 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0
@@ -161,7 +161,9 @@ Remember that the AND operation will return a 1 only if _both_ values have a 1 i
 
 #### Bit shifts (\<\< and \>\>)
 
-By using bits to represent keys of the piano, we can also recognize some interesting patterns in the keys being currently played. For example, we can see the _intervals_ between notes. In music theory, we call the distance from one piano key to the very next key a **half step**. Two half steps will make a **whole step**. Here is what a few whole steps would look like in our bit field. Notice any patterns?
+By using bits to represent keys of the piano, we can also recognize some interesting patterns in the keys being currently played. For example, we can see the _intervals_ between notes by looking at the patterns of 1s and 0s.
+
+In music theory, we call the distance from one piano key to the very next key a **half step**. Two half steps will make a **whole step**. Here is what whole steps would look like in our bit field. Notice any patterns?
 
 ```
       C and D: 1 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0
@@ -170,7 +172,7 @@ By using bits to represent keys of the piano, we can also recognize some interes
        (notes: C | C#| D | D#| E | F | F#| G | G#| A | A#| B | C)
 ```
 
-A whole step will always have the pattern of **101** in our bit field, although it can appear in different positions. We could use patterns like this one to detect whether a user is playing a certain common interval or chord!
+A whole step will always have the pattern of **101** in our bit field, although it can appear in different positions. We could use patterns like this one to detect whether a user is playing a certain interval or chord!
 
 To detect these patterns easily in our code, we'll first need to get rid of all those zeros on the right. We can do this by using a bit shift operator (>>). Let's take F and G as an example:
 
@@ -210,7 +212,7 @@ I'm using the [Svelte](https://svelte.dev) framework here, as it allows for some
 Now, is a bit field the most _sensible_ way to hold the state of the piano in an actual application? Probably not 😅, and here are a few reasons why:
 
 - It makes debugging quite tricky. Imagine if there's a bug somewhere in the app - now you have to dive into all the bit math just to figure out what's going on.
-- The performance gains of bit operations vs. just using an array might be quite modest in an interpreted scripting language like JavaScript. You know what they say about premature optimizations...
+- The performance gains of bit operations vs. just using an array might be quite modest in an interpreted scripting language like JavaScript. You know what they say about premature optimization...
 - It's not easily extensible. If you wanted to store additional information, like the volume/velocity of each key played, you'd need an additional piece of state. In that case, you might as well go with an array or hashmap, where we can add data as needed.
 
 All that being said, is this a cool way to learn about and visualize bitwise operations, and even learn some music theory in the process? I would say **yes!**
