@@ -22,9 +22,11 @@ import BitPianoCode from "~components/demos/bit-piano/BitPiano.svelte?raw";
 
 I've been learning a _bit_ about bit operations and [bitmasks](<https://en.wikipedia.org/wiki/Mask_(computing)>), and wanted to try applying them to a musical concept - building an interactive piano. Let's see how it goes!
 
-When working on an [interactive piano](/projects), one of the first questions/challenges is how to store the **current state** of the piano - i.e., how do we know which keys are being played right now? We need to store this state in an organized, comprehensive way in our application, so that we can easily react when the user interacts with the piano.
+## Contents
 
-## Storing the piano state as an array
+## Using an array
+
+When working on an [interactive piano](/projects), one of the first questions/challenges is how to store the **current state** of the piano - i.e., how do we know which keys are being played right now? We need to store this state in an organized, comprehensive way in our application, so that we can easily react when the user interacts with the piano.
 
 Let's consider just one octave of a piano for now, to keep things simple. On a piano, one octave is comprised of 12 keys, representing the 12 notes of a scale in Western music (we see 13 keys here because we also have the C in the _next_ octave):
 
@@ -87,7 +89,7 @@ initial state: 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0
         notes: C | C#| D | D#| E | F | F#| G | G#| A | A#| B | C
 ```
 
-#### Bitwise OR (|)
+#### Bitwise OR
 
 Now, let's say the user plays a D. We want to flip the third bit from a zero (off) to a one (on). To do this, we'll grab the bitmask of D from the table above, and then apply it to the initial state using the OR (|) operator:
 
@@ -115,7 +117,7 @@ current state: 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0
 
 Now, both D and A are set to the 1 / 'on' state. Notice that by using the bitmask and the OR operation, it doesn't affect any other bits in the state - it only acts on the bit that we want.
 
-#### Bitwise AND (&)
+#### Bitwise AND
 
 How does our application check whether a certain note is currently being played? We'll need another operator - the AND operator. The AND operator (&) takes two binary values, and if a 1 is found in the same position in _both_ values, it will return a 1 in the same position in the resulting value. Otherwise, it returns a 0.
 
@@ -132,7 +134,7 @@ current state: 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0
 
 Since the resulting value has a 1, we know that the note D is currently being played. Simple! (have I lost you yet?)
 
-#### Bitwise NOT (~)
+#### Bitwise NOT
 
 Ok, we have a way to toggle notes 'on', and we have a way to check if any note is being played. But we still need a way to toggle notes 'off'! We'll need to do something a little more involved here.
 
@@ -159,7 +161,7 @@ NOT bitmask of A: 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 0 | 1 | 1 | 1
 
 Remember that the AND operation will return a 1 only if _both_ values have a 1 in the same position. By combining the AND and NOT operators, we force the A key into the zero / 'off' position, without affecting any other keys.
 
-#### Bit shifts (\<\< and \>\>)
+#### Bit shifts
 
 By using bits to represent keys of the piano, we can also recognize some interesting patterns in the keys being currently played. For example, we can see the _intervals_ between notes by looking at the patterns of 1s and 0s.
 
@@ -207,7 +209,7 @@ I'm using the [Svelte](https://svelte.dev) framework here, as it allows for some
 
 <Code code={BitPianoCode.slice(0, BitPianoCode.indexOf("\n<style"))} lang="svelte" />
 
-## Downsides
+## Drawbacks
 
 Now, is a bit field the most _sensible_ way to hold the state of the piano in an actual application? Probably not 😅, and here are a few reasons why:
 

@@ -3,6 +3,7 @@ import mdx from "@astrojs/mdx";
 import node from "@astrojs/node";
 import preact from "@astrojs/preact";
 import remarkGFM from "remark-gfm";
+import remarkTOC from "remark-toc";
 import { rehypeAccessibleEmojis } from "rehype-accessible-emojis";
 import icon from "astro-icon";
 import svelte from "@astrojs/svelte";
@@ -20,7 +21,7 @@ export default defineConfig({
   },
   site: "https://fasharp.io",
   markdown: {
-    remarkPlugins: [remarkGFM],
+    remarkPlugins: [remarkGFM, remarkTOC],
     rehypePlugins: [rehypeAccessibleEmojis],
   },
   integrations: [
