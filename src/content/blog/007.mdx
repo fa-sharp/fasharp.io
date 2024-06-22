@@ -55,7 +55,7 @@ With bits, integers can be stored in their binary (base 2) representation. Here'
 
 ### Bit fields and masks
 
-A series of bits doesn't have to just represent a number, though. We could take a bunch of bits (sometimes called a bit field, or bit set) and then give each individual bit a _special meaning_ - say, a note in a musical scale! So, let's expand out to 13 bits to represent one octave of piano keys, and then assign each note to a specific bit:
+A series of bits doesn't have to just represent a number, though. We could take a bunch of bits (sometimes called a bit field, or bit set) and then give each individual bit a _special meaning_ - say, a note in a musical scale! So, let's expand out to 13 bits to represent one octave of piano keys, and then assign each note to a specific bit in our bit field:
 
 ```
 | Note  |  Base 2 (bitmask) | Base 10 |
