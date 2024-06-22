@@ -21,6 +21,7 @@
     "@iconify-json/fa6-solid": "^1.1.21",
     "@preact/signals": "^1.2.3",
     "astro-embed": "^0.7.2",
+    "astro-expressive-code": "^0.35.3",
     "astro-icon": "1.1.0",
     "lucide-preact": "^0.395.0",
     "rehype-accessible-emojis": "^0.3.2",
