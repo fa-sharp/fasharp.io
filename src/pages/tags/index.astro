@@ -1,7 +1,7 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import Tags from "../../components/Tags.astro";
 import { getCollection } from "astro:content";
+import Tags from "~components/Tags.astro";
+import BaseLayout from "~components/layouts/BaseLayout.astro";
 
 export const prerender = true;
 
@@ -9,8 +9,8 @@ const pageTitle = "Tag index";
 const posts = await getCollection("blog", ({ data }) =>
   import.meta.env.PROD ? data.status !== "draft" : true
 );
-const tags = [...new Set(posts.flatMap((post) => post.data.tags))].sort(
-  (a, b) => a.localeCompare(b)
+const tags = [...new Set(posts.flatMap((post) => post.data.tags))].sort((a, b) =>
+  a.localeCompare(b)
 );
 ---
 

@@ -1,7 +1,7 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import BlogPostLink from "../../components/BlogPostLink.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
+import BlogPostLink from "~components/blog-post/BlogPostLink.astro";
+import BaseLayout from "~components/layouts/BaseLayout.astro";
 
 export const prerender = true;
 
@@ -9,8 +9,8 @@ export async function getStaticPaths() {
   const posts = await getCollection("blog", ({ data }) =>
     import.meta.env.PROD ? data.status !== "draft" : true
   );
-  const tags = [...new Set(posts.flatMap((post) => post.data.tags))].sort(
-    (a, b) => a.localeCompare(b)
+  const tags = [...new Set(posts.flatMap((post) => post.data.tags))].sort((a, b) =>
+    a.localeCompare(b)
   );
 
   return tags.map((tag) => ({
@@ -30,10 +30,6 @@ const { tag } = Astro.params;
 <BaseLayout pageTitle={tag}>
   <p>Posts tagged with {tag}</p>
   <ul>
-    {
-      posts.map((post) => (
-        <BlogPostLink url={`/blog/${post.slug}`} title={post.data.title} />
-      ))
-    }
+    {posts.map((post) => <BlogPostLink url={`/blog/${post.slug}`} title={post.data.title} />)}
   </ul>
 </BaseLayout>

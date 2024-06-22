@@ -1,12 +1,10 @@
 ---
 import { getCollection } from "astro:content";
-import BlogPost from "./BlogPostLink.astro";
 import { Icon } from "astro-icon/components";
+import BlogPostLink from "./blog-post/BlogPostLink.astro";
 
 /** The five latest posts */
-const recentPosts = (
-  await getCollection("blog", (post) => post.data.status === "published")
-)
+const recentPosts = (await getCollection("blog", (post) => post.data.status === "published"))
   .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
   .slice(0, 5);
 ---
@@ -18,11 +16,7 @@ const recentPosts = (
   <ul class="list">
     {
       recentPosts.map((post) => (
-        <BlogPost
-          url={`/blog/${post.slug}`}
-          title={post.data.title}
-          date={post.data.pubDate}
-        />
+        <BlogPostLink url={`/blog/${post.slug}`} title={post.data.title} date={post.data.pubDate} />
       ))
     }
   </ul>

@@ -1,10 +1,10 @@
 ---
-import BaseLayout from "./BaseLayout.astro";
-import Tags from "../components/Tags.astro";
-import BlogPostReactions from "~components/BlogPostReactions";
 import { Icon } from "astro-icon/components";
-import type { CollectionEntry } from "astro:content";
 import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import Tags from "~components/Tags.astro";
+import BlogPostReactions from "~components/blog-post/BlogPostReactions";
+import BaseLayout from "~components/layouts/BaseLayout.astro";
 
 interface Props {
   post: CollectionEntry<"blog">;

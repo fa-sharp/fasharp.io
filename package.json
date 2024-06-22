@@ -11,6 +11,7 @@
     "migrate": "ley"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.7.0",
     "@astrojs/mdx": "^3.1.1",
     "@astrojs/node": "^8.3.1",
     "@astrojs/preact": "^3.5.0",
