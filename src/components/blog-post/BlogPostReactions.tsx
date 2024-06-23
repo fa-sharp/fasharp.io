@@ -1,9 +1,9 @@
-import { useSignalEffect, useSignal } from "@preact/signals";
-import { Heart, Flame, Rocket, Coffee, Music3 } from "lucide-preact";
-import { useCallback } from "preact/hooks";
+import { useSignal, useSignalEffect } from "@preact/signals";
 import { actions } from "astro:actions";
-import type { PostReactionData, PostReactionType } from "src/database";
+import { Coffee, Flame, Heart, Music3, Rocket } from "lucide-preact";
 import type { ReactNode } from "preact/compat";
+import { useCallback } from "preact/hooks";
+import type { PostReactionData, PostReactionType } from "src/database";
 
 import styles from "./BlogPostReactions.module.css";
 
@@ -32,8 +32,9 @@ export default function BlogPostReactions({ postSlug }: { postSlug: string }) {
 
   // fetch user's reactions from local storage
   useSignalEffect(() => {
-    const storedUserReactions: Partial<Record<PostReactionType, boolean>> =
-      JSON.parse(localStorage.getItem(`${postSlug}-reactions`) || "{}");
+    const storedUserReactions: Partial<Record<PostReactionType, boolean>> = JSON.parse(
+      localStorage.getItem(`${postSlug}-reactions`) || "{}"
+    );
     userReactions.value = {
       likes: storedUserReactions.likes ?? false,
       flames: storedUserReactions.flames ?? false,
@@ -45,47 +46,41 @@ export default function BlogPostReactions({ postSlug }: { postSlug: string }) {
 
   // sync user's reactions to local storage
   useSignalEffect(() => {
-    localStorage.setItem(
-      `${postSlug}-reactions`,
-      JSON.stringify(userReactions.value)
-    );
+    localStorage.setItem(`${postSlug}-reactions`, JSON.stringify(userReactions.value));
   });
 
-  const onReaction = useCallback((type: PostReactionType) => {
-    const newValue = !userReactions.peek()[type];
+  const onReaction = useCallback(
+    (type: PostReactionType) => {
+      const isLiked = !userReactions.peek()[type];
 
-    userReactions.value = {
-      ...userReactions.peek(),
-      [type]: newValue,
-    };
-    const currentReactions = postReactions.peek();
-    if (currentReactions) {
-      postReactions.value = {
-        ...currentReactions,
-        [type]: currentReactions[type] + (newValue ? 1 : -1),
+      userReactions.value = {
+        ...userReactions.peek(),
+        [type]: isLiked,
       };
-    }
-    actions.like
-      .safe({ postSlug, like: newValue, type })
-      .then(({ data, error }) => {
+      const currentReactions = postReactions.peek();
+      if (currentReactions) {
+        postReactions.value = {
+          ...currentReactions,
+          [type]: currentReactions[type] + (isLiked ? 1 : -1),
+        };
+      }
+
+      actions.like.safe({ postSlug, like: isLiked, type }).then(({ data, error }) => {
         if (data) postReactions.value = data.data;
         if (error) console.error("Error adding reaction:", error);
       });
-  }, []);
+    },
+    [postSlug]
+  );
 
   return (
     <div style={{ display: "flex", gap: "0.8rem" }}>
       <Reaction
         onClick={() => onReaction("likes")}
         title={userReactions.value.likes ? "unlike" : "like"}
-        ariaLabel={
-          userReactions.value.likes ? "unlike this post" : "like this post"
-        }
+        ariaLabel={userReactions.value.likes ? "unlike this post" : "like this post"}
         icon={
-          <Heart
-            color="magenta"
-            fill={userReactions.value.likes ? "magenta" : "transparent"}
-          />
+          <Heart color="magenta" fill={userReactions.value.likes ? "magenta" : "transparent"} />
         }
         numReactions={postReactions.value?.likes}
       />
@@ -112,16 +107,10 @@ export default function BlogPostReactions({ postSlug }: { postSlug: string }) {
             ? "remove rocket reaction from this post"
             : "add rocket reaction to this post"
         }
-        icon={
-          <Rocket
-            color="red"
-            fill={userReactions.value.rockets ? "red" : "transparent"}
-          />
-        }
+        icon={<Rocket color="red" fill={userReactions.value.rockets ? "red" : "transparent"} />}
         numReactions={postReactions.value?.rockets}
         onClick={() => onReaction("rockets")}
       />
-
       <Reaction
         title={userReactions.value.coffee ? "remove coffee" : "add coffee"}
         ariaLabel={
@@ -147,10 +136,7 @@ export default function BlogPostReactions({ postSlug }: { postSlug: string }) {
             : "add note reaction to this post"
         }
         icon={
-          <Music3
-            color="#1e90ff"
-            fill={userReactions.value.notes ? "#1e90ff" : "transparent"}
-          />
+          <Music3 color="#1e90ff" fill={userReactions.value.notes ? "#1e90ff" : "transparent"} />
         }
         numReactions={postReactions.value?.notes}
         onClick={() => onReaction("notes")}
@@ -172,12 +158,7 @@ const Reaction = ({
   title: string;
   onClick: () => void;
 }) => (
-  <button
-    onClick={onClick}
-    title={title}
-    aria-label={ariaLabel}
-    className={styles.iconButton}
-  >
+  <button onClick={onClick} title={title} aria-label={ariaLabel} className={styles.iconButton}>
     {icon}
     {numReactions}
   </button>
