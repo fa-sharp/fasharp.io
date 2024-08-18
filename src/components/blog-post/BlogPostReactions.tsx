@@ -20,7 +20,7 @@ export default function BlogPostReactions({ postSlug }: { postSlug: string }) {
   // fetch post reactions
   useSignalEffect(() => {
     actions.getPostData({ postSlug }).then(({ data }) => {
-      postReactions.value = data || {
+      postReactions.value = data?.data || {
         flames: 0,
         likes: 0,
         rockets: 0,
@@ -65,7 +65,7 @@ export default function BlogPostReactions({ postSlug }: { postSlug: string }) {
         };
       }
 
-      actions.like.safe({ postSlug, like: isLiked, type }).then(({ data, error }) => {
+      actions.like({ postSlug, like: isLiked, type }).then(({ data, error }) => {
         if (data) postReactions.value = data.data;
         if (error) console.error("Error adding reaction:", error);
       });
