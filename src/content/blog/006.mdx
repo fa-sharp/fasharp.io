@@ -9,7 +9,7 @@ image:
   height: 220
   width: 500
 pubDate: 2024-06-13
-tags: ["js", "a11y"]
+tags: ["js", "a11y", "learning"]
 ---
 
 import { Icon } from "astro-icon/components";
@@ -74,19 +74,20 @@ This seems like a small detail, but it could be _the_ difference for your visual
 
 ## Add labels
 
-Since an icon button won't have any clear, visual text label next to it, we need to make extra sure to add some _other_ labels in our HTML, including (but not limited to) the `title` and `aria-label` attributes:
+Since an icon button won't have any clear, visual text label next to it, we need to make extra sure to add some _other_ labels in our HTML, including (but not limited to) the `title`, `aria-label`, and `aria-hidden` attributes:
 
 - The `title` attribute adds a visual tooltip to the button, which appears when the user hovers over the button with their cursor.
 - In the `aria-label` property, we'll want to add a short description of what the button does. Screen readers will default to reading the `aria-label` property when there is one.
+- We'll want to add the `aria-hidden` attribute to the image itself. This way, screen readers will skip announcing an image and just announce the button itself, which is the important part.
 
 ```html
 <button class="icon-button" title="Save" aria-label="Save the current task">
-  <svg>...(your save icon SVG)...</svg>
+  <svg aria-hidden="true">...(your save icon SVG)...</svg>
 </button>
 ```
 
-Notice we didn't put the word "button" in our labels. Because we're correctly using the `<button>` HTML element, a screen reader will already let the user know that this is a button, so there's no need to duplicate that info in the label!
+Notice we didn't put the word "button" in our textual labels. Because we're correctly using the `<button>` HTML element, a screen reader will already let the user know that this is a button, so there's no need to duplicate that info in the label!
 
 ## Conclusion
 
-By choosing our icons wisely, using the correct HTML element, and using proper labels, we are well on our way to making our icon buttons helpful and accessible, and avoiding the common pitfalls associated with them. Again, ideally, we would _never_ use icon buttons! But if we have to, these are some good general principles to keep in mind 😄.
+By choosing our icons wisely, using the correct HTML element, and using proper labels, we are well on our way to making our icon buttons helpful and accessible, and avoiding the common pitfalls associated with them. Again, ideally, we would _never_ use icon buttons! But if we have to, these are some good general principles to keep in mind.
