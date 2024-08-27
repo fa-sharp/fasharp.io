@@ -3,7 +3,7 @@
   title="Toggle visual theme"
   aria-label="Toggle visual theme between light and dark"
 >
-  <svg width="30px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+  <svg aria-hidden="true" width="30px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
     <path
       class="sun"
       fill-rule="evenodd"
@@ -46,8 +46,7 @@
           const item = localStorage.getItem("theme");
           if (item) return item;
         }
-        if (window.matchMedia("(prefers-color-scheme: dark)").matches)
-          return "dark";
+        if (window.matchMedia("(prefers-color-scheme: dark)").matches) return "dark";
         return "light";
       })();
       if (theme === "light") {

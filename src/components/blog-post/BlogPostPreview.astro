@@ -22,8 +22,8 @@ const dateFormatter = new Intl.DateTimeFormat("en-US", {
 const formattedDate = dateFormatter.format(date);
 ---
 
-<a href={url} class="preview">
-  <li>
+<li class="preview">
+  <a href={url}>
     <div class="preview-heading">
       <h2 class="preview-title" transition:name={title}>
         {title}
@@ -38,50 +38,54 @@ const formattedDate = dateFormatter.format(date);
         <Image class="preview-image" src={image.url} alt={image.alt} width={700} height={200} />
       )
     }
-  </li>
+  </a>
+</li>
 
-  <style>
-    a {
-      color: black;
-      text-decoration: none;
-    }
-    a:hover {
-      text-decoration: underline;
-      color: black;
-    }
-    :global(.dark) a,
-    :global(.dark) a:hover {
-      color: white;
-    }
-    .preview {
-      position: relative;
+<style>
+  .preview {
+    display: flex;
+    position: relative;
 
-      min-height: 8rem;
-      max-width: 700px;
+    min-height: 8rem;
+    max-width: 700px;
 
-      padding: 1rem;
-      border-radius: var(--radius);
-      box-shadow: var(--card-shadow);
+    border-radius: var(--radius);
+    box-shadow: var(--card-shadow);
 
-      overflow: hidden;
-    }
-    .preview-heading {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-    }
-    .preview-title {
-      margin: 0;
-    }
-    .preview-image {
-      position: absolute;
-      inset: 0;
-      z-index: -1;
+    overflow: hidden;
+  }
 
-      object-fit: cover;
-      opacity: 12%;
-      filter: blur(2px);
-    }
-  </style>
-</a>
+  a {
+    flex: 1;
+    padding: 1rem;
+    color: black;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+    color: black;
+  }
+  :global(.dark) a,
+  :global(.dark) a:hover {
+    color: white;
+  }
+
+  .preview-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .preview-title {
+    margin: 0;
+  }
+  .preview-image {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+
+    object-fit: cover;
+    opacity: 12%;
+    filter: blur(2px);
+  }
+</style>

@@ -1,3 +1,16 @@
+ul.reactions {
+  display: flex;
+  gap: 0.8rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+ul.reactions > li {
+  display: flex;
+  margin: 0;
+}
+
 .iconButton {
   display: inline-flex;
   gap: 4px;

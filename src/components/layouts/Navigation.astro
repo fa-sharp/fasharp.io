@@ -1,10 +1,16 @@
-<div class="nav-links">
-  <a href="/" class:list={{ current: Astro.url.pathname === "/" }}>Home</a>
-  <a href="/blog/1" class:list={{ current: Astro.url.pathname.startsWith("/blog") }}> Blog </a>
-  <a href="/projects" class:list={{ current: Astro.url.pathname.startsWith("/projects") }}>
-    Projects
-  </a>
-</div>
+<ul class="nav-links">
+  <li>
+    <a href="/" class:list={{ current: Astro.url.pathname === "/" }}>Home</a>
+  </li>
+  <li>
+    <a href="/blog/1" class:list={{ current: Astro.url.pathname.startsWith("/blog") }}>Blog</a>
+  </li>
+  <li>
+    <a href="/projects" class:list={{ current: Astro.url.pathname.startsWith("/projects") }}>
+      Projects
+    </a>
+  </li>
+</ul>
 
 <style>
   .current {

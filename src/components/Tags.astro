@@ -13,13 +13,15 @@ const { tags } = Astro.props;
 
 <div class="tags">
   <Icon aria-label="tags" name="fa6-solid:tags" size={20} />
-  {
-    tags.map((tag) => (
-      <div class="tag">
-        <a href={tag.url}>{tag.name}</a>
-      </div>
-    ))
-  }
+  <ul class="tags">
+    {
+      tags.map((tag) => (
+        <li class="tag">
+          <a href={tag.url}>{tag.name}</a>
+        </li>
+      ))
+    }
+  </ul>
 </div>
 
 <style>
@@ -28,6 +30,9 @@ const { tags } = Astro.props;
     flex-wrap: wrap;
     align-items: center;
     gap: 0.5rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
   }
 
   .tag {

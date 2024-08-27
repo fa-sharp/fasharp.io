@@ -74,74 +74,100 @@ export default function BlogPostReactions({ postSlug }: { postSlug: string }) {
   );
 
   return (
-    <div style={{ display: "flex", gap: "0.8rem" }}>
-      <Reaction
-        onClick={() => onReaction("likes")}
-        title={userReactions.value.likes ? "unlike" : "like"}
-        ariaLabel={userReactions.value.likes ? "unlike this post" : "like this post"}
-        icon={
-          <Heart color="magenta" fill={userReactions.value.likes ? "magenta" : "transparent"} />
-        }
-        numReactions={postReactions.value?.likes}
-      />
-      <Reaction
-        onClick={() => onReaction("flames")}
-        title={userReactions.value.flames ? "remove flame" : "add flame"}
-        ariaLabel={
-          userReactions.value.flames
-            ? "remove flame reaction from this post"
-            : "add flame reaction to this post"
-        }
-        icon={
-          <Flame
-            color="darkorange"
-            fill={userReactions.value.flames ? "darkorange" : "transparent"}
-          />
-        }
-        numReactions={postReactions.value?.flames}
-      />
-      <Reaction
-        title={userReactions.value.rockets ? "remove rocket" : "add rocket"}
-        ariaLabel={
-          userReactions.value.rockets
-            ? "remove rocket reaction from this post"
-            : "add rocket reaction to this post"
-        }
-        icon={<Rocket color="red" fill={userReactions.value.rockets ? "red" : "transparent"} />}
-        numReactions={postReactions.value?.rockets}
-        onClick={() => onReaction("rockets")}
-      />
-      <Reaction
-        title={userReactions.value.coffee ? "remove coffee" : "add coffee"}
-        ariaLabel={
-          userReactions.value.coffee
-            ? "remove coffee reaction from this post"
-            : "add coffee reaction to this post"
-        }
-        icon={
-          <Coffee
-            fill={userReactions.value.coffee ? "#c65959" : "transparent"}
-            color="#c65959"
-            size={26}
-          />
-        }
-        numReactions={postReactions.value?.coffee}
-        onClick={() => onReaction("coffee")}
-      />
-      <Reaction
-        title={userReactions.value.notes ? "remove note" : "add note"}
-        ariaLabel={
-          userReactions.value.notes
-            ? "remove note reaction from this post"
-            : "add note reaction to this post"
-        }
-        icon={
-          <Music3 color="#1e90ff" fill={userReactions.value.notes ? "#1e90ff" : "transparent"} />
-        }
-        numReactions={postReactions.value?.notes}
-        onClick={() => onReaction("notes")}
-      />
-    </div>
+    <ul className={styles.reactions} aria-label="reaction buttons">
+      <li>
+        <Reaction
+          onClick={() => onReaction("likes")}
+          title={userReactions.value.likes ? "unlike" : "like"}
+          ariaLabel={userReactions.value.likes ? "unlike this post" : "like this post"}
+          icon={
+            <Heart
+              aria-hidden
+              color="magenta"
+              fill={userReactions.value.likes ? "magenta" : "transparent"}
+            />
+          }
+          numReactions={postReactions.value?.likes}
+        />
+      </li>
+      <li>
+        <Reaction
+          onClick={() => onReaction("flames")}
+          title={userReactions.value.flames ? "remove flame" : "add flame"}
+          ariaLabel={
+            userReactions.value.flames
+              ? "remove flame reaction from this post"
+              : "add flame reaction to this post"
+          }
+          icon={
+            <Flame
+              aria-hidden
+              color="darkorange"
+              fill={userReactions.value.flames ? "darkorange" : "transparent"}
+            />
+          }
+          numReactions={postReactions.value?.flames}
+        />
+      </li>
+      <li>
+        <Reaction
+          title={userReactions.value.rockets ? "remove rocket" : "add rocket"}
+          ariaLabel={
+            userReactions.value.rockets
+              ? "remove rocket reaction from this post"
+              : "add rocket reaction to this post"
+          }
+          icon={
+            <Rocket
+              aria-hidden
+              color="red"
+              fill={userReactions.value.rockets ? "red" : "transparent"}
+            />
+          }
+          numReactions={postReactions.value?.rockets}
+          onClick={() => onReaction("rockets")}
+        />
+      </li>
+      <li>
+        <Reaction
+          title={userReactions.value.coffee ? "remove coffee" : "add coffee"}
+          ariaLabel={
+            userReactions.value.coffee
+              ? "remove coffee reaction from this post"
+              : "add coffee reaction to this post"
+          }
+          icon={
+            <Coffee
+              aria-hidden
+              fill={userReactions.value.coffee ? "#c65959" : "transparent"}
+              color="#c65959"
+              size={26}
+            />
+          }
+          numReactions={postReactions.value?.coffee}
+          onClick={() => onReaction("coffee")}
+        />
+      </li>
+      <li>
+        <Reaction
+          title={userReactions.value.notes ? "remove note" : "add note"}
+          ariaLabel={
+            userReactions.value.notes
+              ? "remove note reaction from this post"
+              : "add note reaction to this post"
+          }
+          icon={
+            <Music3
+              aria-hidden
+              color="#1e90ff"
+              fill={userReactions.value.notes ? "#1e90ff" : "transparent"}
+            />
+          }
+          numReactions={postReactions.value?.notes}
+          onClick={() => onReaction("notes")}
+        />
+      </li>
+    </ul>
   );
 }
 
@@ -158,7 +184,12 @@ const Reaction = ({
   title: string;
   onClick: () => void;
 }) => (
-  <button onClick={onClick} title={title} aria-label={ariaLabel} className={styles.iconButton}>
+  <button
+    onClick={onClick}
+    title={title}
+    aria-label={`${ariaLabel} (${numReactions} total reactions)`}
+    className={styles.iconButton}
+  >
     {icon}
     {numReactions}
   </button>
