@@ -1,5 +1,6 @@
-import { ActionError, defineAction, z } from "astro:actions";
+import { ActionError, defineAction } from "astro:actions";
 import { getEntry } from "astro:content";
+import { z } from "astro:schema";
 import { RateLimiterMemory } from "rate-limiter-flexible";
 import { addReaction, getPostData, removeReaction } from "src/database";
 import { logger } from "src/middleware";
@@ -16,10 +17,7 @@ export const server = {
       type: z.enum(["likes", "flames", "rockets", "coffee", "notes"]),
       postSlug: z
         .string()
-        .refine(
-          async (s) => Boolean(await getEntry("blog", s)),
-          "Post not found!"
-        ),
+        .refine(async (s) => Boolean(await getEntry("blog", s)), "Post not found!"),
     }),
     async handler({ like, type, postSlug }, ctx) {
       logger.info({
@@ -46,10 +44,7 @@ export const server = {
     input: z.object({
       postSlug: z
         .string()
-        .refine(
-          async (s) => Boolean(await getEntry("blog", s)),
-          "Post not found!"
-        ),
+        .refine(async (s) => Boolean(await getEntry("blog", s)), "Post not found!"),
     }),
     async handler({ postSlug }) {
       return { data: await getPostData(postSlug) };

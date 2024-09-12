@@ -1,21 +1,18 @@
-import { defineConfig } from "astro/config";
 import mdx from "@astrojs/mdx";
 import node from "@astrojs/node";
 import preact from "@astrojs/preact";
+import svelte from "@astrojs/svelte";
+import icon from "astro-icon";
+import { defineConfig } from "astro/config";
+import { rehypeAccessibleEmojis } from "rehype-accessible-emojis";
 import remarkGFM from "remark-gfm";
 import remarkTOC from "remark-toc";
-import { rehypeAccessibleEmojis } from "rehype-accessible-emojis";
-import icon from "astro-icon";
-import svelte from "@astrojs/svelte";
 
 import expressiveCode from "astro-expressive-code";
 
 // https://astro.build/config
 export default defineConfig({
   output: "server",
-  experimental: {
-    actions: true,
-  },
   security: {
     checkOrigin: true,
   },
