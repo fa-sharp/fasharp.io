@@ -3,7 +3,6 @@ import { Icon } from "astro-icon/components";
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import Tags from "~components/Tags.astro";
-import BlogPostReactions from "~components/blog-post/BlogPostReactions";
 import BaseLayout from "~components/layouts/BaseLayout.astro";
 
 interface Props {
@@ -43,9 +42,6 @@ const postUrl = `https://fasharp.io/blog/${post.slug}`;
         url: `/tags/${tag}`,
       }))}
     />
-    <div>
-      <BlogPostReactions client:only="preact" postSlug={post.slug} />
-    </div>
   </div>
   {
     post.data.image && (
