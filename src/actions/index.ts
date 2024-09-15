@@ -2,7 +2,7 @@ import { ActionError, defineAction } from "astro:actions";
 import { getEntry } from "astro:content";
 import { z } from "astro:schema";
 import { RateLimiterMemory } from "rate-limiter-flexible";
-import { addReaction, getPostData, removeReaction } from "src/database";
+import { addReaction, addView, getPostData, removeReaction } from "src/database";
 import { logger } from "src/middleware";
 
 const rateLimiter = new RateLimiterMemory({
@@ -48,6 +48,24 @@ export const server = {
     }),
     async handler({ postSlug }) {
       return { data: await getPostData(postSlug) };
+    },
+  }),
+  view: defineAction({
+    input: z.object({
+      postSlug: z
+        .string()
+        .refine(async (s) => Boolean(await getEntry("blog", s)), "Post not found!"),
+    }),
+    async handler({ postSlug }, ctx) {
+      try {
+        await rateLimiter.consume(ctx.clientAddress);
+      } catch {
+        throw new ActionError({
+          message: "Slow down!",
+          code: "TOO_MANY_REQUESTS",
+        });
+      }
+      return { views: await addView(postSlug) };
     },
   }),
 };

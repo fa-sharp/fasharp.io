@@ -15,6 +15,7 @@ const sql = postgres({
 interface PostData {
   id: number;
   postSlug: string;
+  views: number;
   likes: number;
   flames: number;
   rockets: number;
@@ -22,18 +23,33 @@ interface PostData {
   notes: number;
 }
 
-export type PostReactionData = Pick<
-  PostData,
-  "likes" | "flames" | "rockets" | "coffee" | "notes"
->;
+export type PostReactionData = Pick<PostData, "likes" | "flames" | "rockets" | "coffee" | "notes">;
 export type PostReactionType = keyof PostReactionData;
 
 export async function getPostData(postSlug: string) {
-  const [post] = await sql<
-    [PostData | undefined]
-  >`SELECT * FROM posts WHERE ${sql("postSlug")} = ${postSlug}`;
+  const [post] = await sql<[PostData | undefined]>`SELECT * FROM posts WHERE ${sql(
+    "postSlug"
+  )} = ${postSlug}`;
 
   return post || null;
+}
+
+export async function addView(postSlug: string) {
+  const postData = await getPostData(postSlug);
+  if (!postData) {
+    const [{ views }] = await sql`INSERT INTO posts ${sql([
+      { postSlug, views: 1 },
+    ])} RETURNING views`;
+    return views as number;
+  } else {
+    const [{ views }] = await sql`
+      UPDATE posts
+      SET views = views + 1
+      WHERE ${sql("postSlug")} = ${postSlug}
+      RETURNING views
+    `;
+    return views as number;
+  }
 }
 
 export async function addReaction(postSlug: string, type: PostReactionType) {

@@ -4,6 +4,7 @@ import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import Tags from "~components/Tags.astro";
 import BaseLayout from "~components/layouts/BaseLayout.astro";
+import BlogPostViewCounter from "./BlogPostViewCounter";
 
 interface Props {
   post: CollectionEntry<"blog">;
@@ -42,6 +43,7 @@ const postUrl = `https://fasharp.io/blog/${post.slug}`;
         url: `/tags/${tag}`,
       }))}
     />
+    <BlogPostViewCounter client:only="preact" postSlug={post.slug} />
   </div>
   {
     post.data.image && (
