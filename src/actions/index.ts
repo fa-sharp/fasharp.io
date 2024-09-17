@@ -65,7 +65,8 @@ export const server = {
           code: "TOO_MANY_REQUESTS",
         });
       }
-      return { views: await addView(postSlug) };
+      await addView(postSlug);
+      return { message: "Welcome!" };
     },
   }),
 };
