@@ -1,5 +1,5 @@
 ---
-import { ViewTransitions } from "astro:transitions";
+import { ClientRouter } from "astro:transitions";
 import Footer from "./Footer.astro";
 import Header from "./Header.astro";
 
@@ -31,7 +31,7 @@ const baseTitle = "fa-sharp";
     {head?.ogImage && <meta property="og:image" content={head.ogImage} />}
     {head?.ogType && <meta property="og:type" content={head.ogType} />}
 
-    <ViewTransitions />
+    <ClientRouter />
 
     <title>{(pageTitle ? `${pageTitle} | ` : "") + baseTitle}</title>
   </head>

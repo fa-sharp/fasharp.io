@@ -12,11 +12,11 @@
     "migrate": "ley"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.7.0",
-    "@astrojs/mdx": "^3.1.5",
-    "@astrojs/node": "^8.3.3",
-    "@astrojs/preact": "^3.5.3",
-    "@astrojs/svelte": "^5.7.0",
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/mdx": "^4.3.5",
+    "@astrojs/node": "^9.4.3",
+    "@astrojs/preact": "^4.1.1",
+    "@astrojs/svelte": "^7.1.1",
     "@flydotio/dockerfile": "^0.5.8",
     "@iconify-json/fa6-brands": "^1.2.0",
     "@iconify-json/fa6-regular": "^1.2.0",
@@ -35,8 +35,8 @@
     "typescript": "^5.6.2"
   },
   "dependencies": {
-    "@astrojs/rss": "^4.0.7",
-    "astro": "^4.15.4",
+    "@astrojs/rss": "^4.0.12",
+    "astro": "^5.13.7",
     "ley": "^0.8.1",
     "pino": "^9.4.0",
     "postgres": "^3.4.4",

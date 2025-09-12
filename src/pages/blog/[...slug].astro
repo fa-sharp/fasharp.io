@@ -1,5 +1,6 @@
 ---
 import type { GetStaticPaths } from "astro";
+import { render } from "astro:content";
 import { getCollection } from "astro:content";
 import BlogPost from "~components/blog-post/BlogPost.astro";
 
@@ -10,13 +11,13 @@ export const getStaticPaths = (async () => {
     import.meta.env.PROD ? data.status !== "draft" : true
   );
   return blogPosts.map((post) => ({
-    params: { slug: post.slug },
+    params: { slug: post.id },
     props: { post },
   }));
 }) satisfies GetStaticPaths;
 
 const { post } = Astro.props;
-const { Content } = await post.render();
+const { Content } = await render(post)
 ---
 
 <BlogPost {post}>
