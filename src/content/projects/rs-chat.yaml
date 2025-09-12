@@ -1,0 +1,10 @@
+name: 🤖 RsChat
+link: https://rs-chat.fly.dev/
+image: ~assets/projects/rs-chat.png
+category: apps
+tools:
+  - Rust
+  - Docker
+  - React
+description: A self-hostable LLM chatbot that can connect to various providers like Anthropic and
+  OpenRouter and includes a built-in code runner.

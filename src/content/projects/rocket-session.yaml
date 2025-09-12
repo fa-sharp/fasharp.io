@@ -1,0 +1,10 @@
+name: 🔑 Rocket Flex Session
+link: https://github.com/fa-sharp/rocket-flex-session
+category: libraries
+image: ~assets/projects/rocket-session.png
+tools:
+  - Rust
+  - Rocket
+description:
+  A session library for the Rocket web framework, providing a flexible and extensible authentication
+  and session management system for Rocket applications.
