@@ -30,6 +30,6 @@ const { tag } = Astro.params;
 <BaseLayout pageTitle={tag}>
   <p>Posts tagged with {tag}</p>
   <ul>
-    {posts.map((post) => <BlogPostLink url={`/blog/${post.slug}`} title={post.data.title} />)}
+    {posts.map((post) => <BlogPostLink url={`/blog/${post.id}`} title={post.data.title} />)}
   </ul>
 </BaseLayout>
