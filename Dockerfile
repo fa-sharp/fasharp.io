@@ -1,12 +1,10 @@
 # syntax = docker/dockerfile:1
 
-ARG NODE_VERSION=20.19
+ARG NODE_VERSION=22.21
 
 FROM node:${NODE_VERSION}-slim AS base
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
-
-LABEL fly_launch_runtime="Astro"
 
 # Astro app lives here
 WORKDIR /app
